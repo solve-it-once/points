@@ -1,10 +1,10 @@
-'delete contact entity':
+'delete point entity':
   title: Delete entity content.
-'add contact entity':
+'add point entity':
   title: Add entity content
-'view contact entity':
+'view point entity':
   title: View entity content
-'edit contact entity':
+'edit point entity':
   title: Edit entity content
-'administer contact entity':
+'administer point entity':
   title: Administer settings

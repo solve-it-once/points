@@ -11,13 +11,13 @@ use Drupal\Core\Form\FormStateInterface;
  *
  * @ingroup content_entity_example
  */
-class ContactForm extends ContentEntityForm {
+class PointForm extends ContentEntityForm {
 
   /**
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    /* @var $entity \Drupal\content_entity_example\Entity\Contact */
+    /* @var $entity \Drupal\content_entity_example\Entity\Point */
     $form = parent::buildForm($form, $form_state);
     $entity = $this->entity;
 
@@ -34,7 +34,7 @@ class ContactForm extends ContentEntityForm {
    * {@inheritdoc}
    */
   public function save(array $form, FormStateInterface $form_state) {
-    $form_state->setRedirect('entity.content_entity_example_contact.collection');
+    $form_state->setRedirect('entity.content_entity_example_point.collection');
     $entity = $this->getEntity();
     $entity->save();
   }

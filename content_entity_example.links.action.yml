@@ -1,11 +1,11 @@
 # All action links for this module
 
-content_entity_example.contact_add:
+content_entity_example.point_add:
   # Which route will be called by the link
-  route_name: content_entity_example.contact_add
-  title: 'Add Contact'
+  route_name: content_entity_example.point_add
+  title: 'Add Point'
 
   # Where will the link appear, defined by route name.
   appears_on:
-    - entity.content_entity_example_contact.collection
-    - entity.content_entity_example_contact.canonical
+    - entity.content_entity_example_point.collection
+    - entity.content_entity_example_point.canonical

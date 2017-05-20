@@ -12,7 +12,7 @@ use Drupal\Core\Session\AccountInterface;
  *
  * @see \Drupal\comment\Entity\Comment.
  */
-class ContactAccessControlHandler extends EntityAccessControlHandler {
+class PointAccessControlHandler extends EntityAccessControlHandler {
 
   /**
    * {@inheritdoc}
@@ -23,13 +23,13 @@ class ContactAccessControlHandler extends EntityAccessControlHandler {
   protected function checkAccess(EntityInterface $entity, $operation, AccountInterface $account) {
     switch ($operation) {
       case 'view':
-        return AccessResult::allowedIfHasPermission($account, 'view contact entity');
+        return AccessResult::allowedIfHasPermission($account, 'view point entity');
 
       case 'edit':
-        return AccessResult::allowedIfHasPermission($account, 'edit contact entity');
+        return AccessResult::allowedIfHasPermission($account, 'edit point entity');
 
       case 'delete':
-        return AccessResult::allowedIfHasPermission($account, 'delete contact entity');
+        return AccessResult::allowedIfHasPermission($account, 'delete point entity');
     }
     return AccessResult::allowed();
   }
@@ -41,7 +41,7 @@ class ContactAccessControlHandler extends EntityAccessControlHandler {
    * will be created during the 'add' process.
    */
   protected function checkCreateAccess(AccountInterface $account, array $context, $entity_bundle = NULL) {
-    return AccessResult::allowedIfHasPermission($account, 'add contact entity');
+    return AccessResult::allowedIfHasPermission($account, 'add point entity');
   }
 
 }

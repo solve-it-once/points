@@ -6,7 +6,7 @@ use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
-use Drupal\content_entity_example\ContactInterface;
+use Drupal\content_entity_example\PointInterface;
 use Drupal\user\UserInterface;
 use Drupal\Core\Entity\EntityChangedTrait;
 
@@ -70,20 +70,20 @@ use Drupal\Core\Entity\EntityChangedTrait;
  * is read and cached. Don't forget to clear cache after changes.
  *
  * @ContentEntityType(
- *   id = "content_entity_example_contact",
- *   label = @Translation("Contact entity"),
+ *   id = "content_entity_example_point",
+ *   label = @Translation("Point entity"),
  *   handlers = {
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
- *     "list_builder" = "Drupal\content_entity_example\Entity\Controller\ContactListBuilder",
+ *     "list_builder" = "Drupal\content_entity_example\Entity\Controller\PointListBuilder",
  *     "form" = {
- *       "add" = "Drupal\content_entity_example\Form\ContactForm",
- *       "edit" = "Drupal\content_entity_example\Form\ContactForm",
- *       "delete" = "Drupal\content_entity_example\Form\ContactDeleteForm",
+ *       "add" = "Drupal\content_entity_example\Form\PointForm",
+ *       "edit" = "Drupal\content_entity_example\Form\PointForm",
+ *       "delete" = "Drupal\content_entity_example\Form\PointDeleteForm",
  *     },
- *     "access" = "Drupal\content_entity_example\ContactAccessControlHandler",
+ *     "access" = "Drupal\content_entity_example\PointAccessControlHandler",
  *   },
  *   list_cache_contexts = { "user" },
- *   base_table = "contact",
+ *   base_table = "point",
  *   admin_permission = "administer content_entity_example entity",
  *   entity_keys = {
  *     "id" = "id",
@@ -91,29 +91,29 @@ use Drupal\Core\Entity\EntityChangedTrait;
  *     "uuid" = "uuid"
  *   },
  *   links = {
- *     "canonical" = "/content_entity_example_contact/{content_entity_example_contact}",
- *     "edit-form" = "/content_entity_example_contact/{content_entity_example_contact}/edit",
- *     "delete-form" = "/contact/{content_entity_example_contact}/delete",
- *     "collection" = "/content_entity_example_contact/list"
+ *     "canonical" = "/content_entity_example_point/{content_entity_example_point}",
+ *     "edit-form" = "/content_entity_example_point/{content_entity_example_point}/edit",
+ *     "delete-form" = "/point/{content_entity_example_point}/delete",
+ *     "collection" = "/content_entity_example_point/list"
  *   },
- *   field_ui_base_route = "content_entity_example.contact_settings",
+ *   field_ui_base_route = "content_entity_example.point_settings",
  * )
  *
  * The 'links' above are defined by their path. For core to find the
  * corresponding route, the route name must follow the correct pattern:
  *
  * entity.<entity-name>.<link-name> (replace dashes with underscores)
- * Example: 'entity.content_entity_example_contact.canonical'
+ * Example: 'entity.content_entity_example_point.canonical'
  *
  * See routing file above for the corresponding implementation
  *
- * The Contact class defines methods and fields for the contact entity.
+ * The Point class defines methods and fields for the point entity.
  *
  * Being derived from the ContentEntityBase class, we can override the methods
  * we want. In our case we want to provide access to the standard fields about
  * creation and changed time stamps.
  *
- * Our interface (see ContactInterface) also exposes the EntityOwnerInterface.
+ * Our interface (see PointInterface) also exposes the EntityOwnerInterface.
  * This allows us to provide methods for setting and providing ownership
  * information.
  *
@@ -126,7 +126,7 @@ use Drupal\Core\Entity\EntityChangedTrait;
  * The class also uses the EntityChangedTrait trait which allows it to record
  * timestamps of save operations.
  */
-class Contact extends ContentEntityBase implements ContactInterface {
+class Point extends ContentEntityBase implements PointInterface {
 
   use EntityChangedTrait;
 
@@ -202,21 +202,21 @@ class Contact extends ContentEntityBase implements ContactInterface {
     // Standard field, used as unique if primary index.
     $fields['id'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('ID'))
-      ->setDescription(t('The ID of the Contact entity.'))
+      ->setDescription(t('The ID of the Point entity.'))
       ->setReadOnly(TRUE);
 
     // Standard field, unique outside of the scope of the current project.
     $fields['uuid'] = BaseFieldDefinition::create('uuid')
       ->setLabel(t('UUID'))
-      ->setDescription(t('The UUID of the Contact entity.'))
+      ->setDescription(t('The UUID of the Point entity.'))
       ->setReadOnly(TRUE);
 
-    // Name field for the contact.
+    // Name field for the point.
     // We set display options for the view as well as the form.
     // Users with correct privileges can change the view and edit configuration.
     $fields['name'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Name'))
-      ->setDescription(t('The name of the Contact entity.'))
+      ->setDescription(t('The name of the Point entity.'))
       ->setSettings(array(
         'default_value' => '',
         'max_length' => 255,
@@ -236,7 +236,7 @@ class Contact extends ContentEntityBase implements ContactInterface {
 
     $fields['first_name'] = BaseFieldDefinition::create('string')
       ->setLabel(t('First Name'))
-      ->setDescription(t('The first name of the Contact entity.'))
+      ->setDescription(t('The first name of the Point entity.'))
       ->setSettings(array(
         'default_value' => '',
         'max_length' => 255,
@@ -254,14 +254,14 @@ class Contact extends ContentEntityBase implements ContactInterface {
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
-    // Gender field for the contact.
+    // Gender field for the point.
     // ListTextType with a drop down menu widget.
     // The values shown in the menu are 'male' and 'female'.
     // In the view the field content is shown as string.
     // In the form the choices are presented as options list.
     $fields['gender'] = BaseFieldDefinition::create('list_string')
       ->setLabel(t('Gender'))
-      ->setDescription(t('The gender of the Contact entity.'))
+      ->setDescription(t('The gender of the Point entity.'))
       ->setSettings(array(
         'allowed_values' => array(
           'female' => 'female',
@@ -280,7 +280,7 @@ class Contact extends ContentEntityBase implements ContactInterface {
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
-    // Owner field of the contact.
+    // Owner field of the point.
     // Entity reference field, holds the reference to the user object.
     // The view shows the user name field of the user.
     // The form presents a auto complete field for the user name.

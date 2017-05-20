@@ -7,12 +7,12 @@ use Drupal\user\EntityOwnerInterface;
 use Drupal\Core\Entity\EntityChangedInterface;
 
 /**
- * Provides an interface defining a Contact entity.
+ * Provides an interface defining a Point entity.
  *
  * We have this interface so we can join the other interfaces it extends.
  *
  * @ingroup content_entity_example
  */
-interface ContactInterface extends ContentEntityInterface, EntityOwnerInterface, EntityChangedInterface {
+interface PointInterface extends ContentEntityInterface, EntityOwnerInterface, EntityChangedInterface {
 
 }

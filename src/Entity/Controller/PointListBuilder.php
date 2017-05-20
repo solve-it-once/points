@@ -14,7 +14,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @ingroup content_entity_example
  */
-class ContactListBuilder extends EntityListBuilder {
+class PointListBuilder extends EntityListBuilder {
 
   /**
    * The url generator.
@@ -36,7 +36,7 @@ class ContactListBuilder extends EntityListBuilder {
   }
 
   /**
-   * Constructs a new ContactListBuilder object.
+   * Constructs a new PointListBuilder object.
    *
    * @param \Drupal\Core\Entity\EntityTypeInterface $entity_type
    *   The entity type definition.
@@ -60,8 +60,8 @@ class ContactListBuilder extends EntityListBuilder {
    */
   public function render() {
     $build['description'] = array(
-      '#markup' => $this->t('Content Entity Example implements a Contacts model. These contacts are fieldable entities. You can manage the fields on the <a href="@adminlink">Contacts admin page</a>.', array(
-        '@adminlink' => $this->urlGenerator->generateFromRoute('content_entity_example.contact_settings'),
+      '#markup' => $this->t('Content Entity Example implements a Point model. These points are fieldable entities. You can manage the fields on the <a href="@adminlink">Points admin page</a>.', array(
+        '@adminlink' => $this->urlGenerator->generateFromRoute('content_entity_example.point_settings'),
       )),
     );
     $build['table'] = parent::render();
@@ -71,13 +71,13 @@ class ContactListBuilder extends EntityListBuilder {
   /**
    * {@inheritdoc}
    *
-   * Building the header and content lines for the contact list.
+   * Building the header and content lines for the point list.
    *
    * Calling the parent::buildHeader() adds a column for the possible actions
    * and inserts the 'edit' and 'delete' links as defined for the entity type.
    */
   public function buildHeader() {
-    $header['id'] = $this->t('ContactID');
+    $header['id'] = $this->t('PointID');
     $header['name'] = $this->t('Name');
     $header['first_name'] = $this->t('First Name');
     $header['gender'] = $this->t('Gender');
@@ -88,7 +88,7 @@ class ContactListBuilder extends EntityListBuilder {
    * {@inheritdoc}
    */
   public function buildRow(EntityInterface $entity) {
-    /* @var $entity \Drupal\content_entity_example\Entity\Contact */
+    /* @var $entity \Drupal\content_entity_example\Entity\Point */
     $row['id'] = $entity->id();
     $row['name'] = $entity->link();
     $row['first_name'] = $entity->first_name->value;

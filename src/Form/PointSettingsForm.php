@@ -12,7 +12,7 @@ use Drupal\Core\Form\FormStateInterface;
  *
  * @ingroup content_entity_example
  */
-class ContactSettingsForm extends FormBase {
+class PointSettingsForm extends FormBase {
   /**
    * Returns a unique string identifying the form.
    *
@@ -34,7 +34,7 @@ class ContactSettingsForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $form['contact_settings']['#markup'] = 'Settings form for ContentEntityExample. Manage field settings here.';
+    $form['point_settings']['#markup'] = 'Settings form for ContentEntityExample. Manage field settings here.';
     return $form;
   }
 

@@ -11,7 +11,7 @@ use Drupal\Core\Url;
  *
  * @ingroup content_entity_example
  */
-class ContactDeleteForm extends ContentEntityConfirmFormBase {
+class PointDeleteForm extends ContentEntityConfirmFormBase {
 
   /**
    * {@inheritdoc}
@@ -23,10 +23,10 @@ class ContactDeleteForm extends ContentEntityConfirmFormBase {
   /**
    * {@inheritdoc}
    *
-   * If the delete command is canceled, return to the contact list.
+   * If the delete command is canceled, return to the point list.
    */
   public function getCancelUrl() {
-    return new Url('entity.content_entity_example_contact.collection');
+    return new Url('entity.content_entity_example_point.collection');
   }
 
   /**
@@ -50,7 +50,7 @@ class ContactDeleteForm extends ContentEntityConfirmFormBase {
         '@type' => $this->entity->bundle(),
         '%title' => $this->entity->label(),
       ));
-    $form_state->setRedirect('entity.content_entity_example_contact.collection');
+    $form_state->setRedirect('entity.content_entity_example_point.collection');
   }
 
 }

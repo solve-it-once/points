@@ -2,57 +2,57 @@
 
 # Route name can be used in several places; e.g. links, redirects, and local
 # actions.
-entity.content_entity_example_contact.canonical:
-  path: '/content_entity_example_contact/{content_entity_example_contact}'
+entity.content_entity_example_point.canonical:
+  path: '/content_entity_example_point/{content_entity_example_point}'
   defaults:
-  # Calls the view controller, defined in the annotation of the contact entity
-    _entity_view: 'content_entity_example_contact'
-    _title: 'Contact Content'
+  # Calls the view controller, defined in the annotation of the point entity
+    _entity_view: 'content_entity_example_point'
+    _title: 'Point Content'
   requirements:
   # Calls the access controller of the entity, $operation 'view'
-    _entity_access: 'content_entity_example_contact.view'
+    _entity_access: 'content_entity_example_point.view'
 
-entity.content_entity_example_contact.collection:
-  path: '/content_entity_example_contact/list'
+entity.content_entity_example_point.collection:
+  path: '/content_entity_example_point/list'
   defaults:
-  # Calls the list controller, defined in the annotation of the contact entity.
-    _entity_list: 'content_entity_example_contact'
-    _title: 'Contact List'
+  # Calls the list controller, defined in the annotation of the point entity.
+    _entity_list: 'content_entity_example_point'
+    _title: 'Point List'
   requirements:
   # Checks for permission directly.
-    _permission: 'view contact entity'
+    _permission: 'view point entity'
 
-content_entity_example.contact_add:
-  path: '/content_entity_example_contact/add'
+content_entity_example.point_add:
+  path: '/content_entity_example_point/add'
   defaults:
-  # Calls the form.add controller, defined in the contact entity.
-    _entity_form: content_entity_example_contact.add
-    _title: 'Add Contact'
+  # Calls the form.add controller, defined in the point entity.
+    _entity_form: content_entity_example_point.add
+    _title: 'Add Point'
   requirements:
-    _entity_create_access: 'content_entity_example_contact'
+    _entity_create_access: 'content_entity_example_point'
 
-entity.content_entity_example_contact.edit_form:
-  path: '/content_entity_example_contact/{content_entity_example_contact}/edit'
+entity.content_entity_example_point.edit_form:
+  path: '/content_entity_example_point/{content_entity_example_point}/edit'
   defaults:
-  # Calls the form.edit controller, defined in the contact entity.
-    _entity_form: content_entity_example_contact.edit
-    _title: 'Edit Contact'
+  # Calls the form.edit controller, defined in the point entity.
+    _entity_form: content_entity_example_point.edit
+    _title: 'Edit Point'
   requirements:
-    _entity_access: 'content_entity_example_contact.edit'
+    _entity_access: 'content_entity_example_point.edit'
 
-entity.content_entity_example_contact.delete_form:
-  path: '/contact/{content_entity_example_contact}/delete'
+entity.content_entity_example_point.delete_form:
+  path: '/point/{content_entity_example_point}/delete'
   defaults:
-    # Calls the form.delete controller, defined in the contact entity.
-    _entity_form: content_entity_example_contact.delete
-    _title: 'Delete Contact'
+    # Calls the form.delete controller, defined in the point entity.
+    _entity_form: content_entity_example_point.delete
+    _title: 'Delete Point'
   requirements:
-    _entity_access: 'content_entity_example_contact.delete'
+    _entity_access: 'content_entity_example_point.delete'
 
-content_entity_example.contact_settings:
-  path: 'admin/structure/content_entity_example_contact_settings'
+content_entity_example.point_settings:
+  path: 'admin/structure/content_entity_example_point_settings'
   defaults:
-    _form: '\Drupal\content_entity_example\Form\ContactSettingsForm'
-    _title: 'Contact Settings'
+    _form: '\Drupal\content_entity_example\Form\PointSettingsForm'
+    _title: 'Point Settings'
   requirements:
-    _permission: 'administer contact entity'
+    _permission: 'administer point entity'

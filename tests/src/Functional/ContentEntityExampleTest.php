@@ -2,7 +2,7 @@
 
 namespace Drupal\content_entity_example\Tests;
 
-use Drupal\content_entity_example\Entity\Contact;
+use Drupal\content_entity_example\Entity\Point;
 use Drupal\Tests\examples\Functional\ExamplesBrowserTestBase;
 
 /**
@@ -26,30 +26,30 @@ class ContentEntityExampleTest extends ExamplesBrowserTestBase {
     $assert = $this->assertSession();
 
     $web_user = $this->drupalCreateUser(array(
-      'add contact entity',
-      'edit contact entity',
-      'view contact entity',
-      'delete contact entity',
-      'administer contact entity',
-      'administer content_entity_example_contact display',
-      'administer content_entity_example_contact fields',
-      'administer content_entity_example_contact form display',
+      'add point entity',
+      'edit point entity',
+      'view point entity',
+      'delete point entity',
+      'administer point entity',
+      'administer content_entity_example_point display',
+      'administer content_entity_example_point fields',
+      'administer content_entity_example_point form display',
     ));
 
     // Anonymous User should not see the link to the listing.
-    $assert->pageTextNotContains('Content Entity Example: Contacts Listing');
+    $assert->pageTextNotContains('Content Entity Example: Points Listing');
 
     $this->drupalLogin($web_user);
 
     // Web_user user has the right to view listing.
-    $assert->linkExists('Content Entity Example: Contacts Listing');
+    $assert->linkExists('Content Entity Example: Points Listing');
 
-    $this->clickLink('Content Entity Example: Contacts Listing');
+    $this->clickLink('Content Entity Example: Points Listing');
 
     // WebUser can add entity content.
-    $assert->linkExists('Add Contact');
+    $assert->linkExists('Add Point');
 
-    $this->clickLink(t('Add Contact'));
+    $this->clickLink(t('Add Point'));
 
     $assert->fieldValueEquals('name[0][value]', '');
     $assert->fieldValueEquals('name[0][value]', '');
@@ -76,7 +76,7 @@ class ContentEntityExampleTest extends ExamplesBrowserTestBase {
     $assert->pageTextContains('test name');
     $assert->pageTextContains('test first name');
     $assert->pageTextContains('male');
-    $assert->linkExists('Add Contact');
+    $assert->linkExists('Add Point');
     $assert->linkExists('Edit');
     $assert->linkExists('Delete');
 
@@ -91,8 +91,8 @@ class ContentEntityExampleTest extends ExamplesBrowserTestBase {
     $assert->pageTextNotContains('test name');
 
     // Settings page.
-    $this->drupalGet('admin/structure/content_entity_example_contact_settings');
-    $assert->pageTextContains('Contact Settings');
+    $this->drupalGet('admin/structure/content_entity_example_point_settings');
+    $assert->pageTextContains('Point Settings');
 
     // Make sure the field manipulation links are available.
     $assert->linkExists('Settings');
@@ -107,18 +107,18 @@ class ContentEntityExampleTest extends ExamplesBrowserTestBase {
   public function testPaths() {
     $assert = $this->assertSession();
 
-    // Generate a contact so that we can test the paths against it.
-    $contact = Contact::create(
+    // Generate a point so that we can test the paths against it.
+    $point = Point::create(
       array(
         'name' => 'somename',
         'first_name' => 'Joe',
         'gender' => 'female',
       )
     );
-    $contact->save();
+    $point->save();
 
     // Gather the test data.
-    $data = $this->providerTestPaths($contact->id());
+    $data = $this->providerTestPaths($point->id());
 
     // Run the tests.
     foreach ($data as $datum) {
@@ -140,8 +140,8 @@ class ContentEntityExampleTest extends ExamplesBrowserTestBase {
   /**
    * Data provider for testPaths.
    *
-   * @param int $contact_id
-   *   The id of an existing Contact entity.
+   * @param int $point_id
+   *   The id of an existing Point entity.
    *
    * @return array
    *   Nested array of testing data. Arranged like this:
@@ -149,84 +149,84 @@ class ContentEntityExampleTest extends ExamplesBrowserTestBase {
    *   - Path to request.
    *   - Permission for the user.
    */
-  protected function providerTestPaths($contact_id) {
+  protected function providerTestPaths($point_id) {
     return array(
       array(
         200,
-        '/content_entity_example_contact/' . $contact_id,
-        'view contact entity',
+        '/content_entity_example_point/' . $point_id,
+        'view point entity',
       ),
       array(
         403,
-        '/content_entity_example_contact/' . $contact_id,
+        '/content_entity_example_point/' . $point_id,
         '',
       ),
       array(
         200,
-        '/content_entity_example_contact/list',
-        'view contact entity',
+        '/content_entity_example_point/list',
+        'view point entity',
       ),
       array(
         403,
-        '/content_entity_example_contact/list',
+        '/content_entity_example_point/list',
         '',
       ),
       array(
         200,
-        '/content_entity_example_contact/add',
-        'add contact entity',
+        '/content_entity_example_point/add',
+        'add point entity',
       ),
       array(
         403,
-        '/content_entity_example_contact/add',
+        '/content_entity_example_point/add',
         '',
       ),
       array(
         200,
-        '/content_entity_example_contact/' . $contact_id . '/edit',
-        'edit contact entity',
+        '/content_entity_example_point/' . $point_id . '/edit',
+        'edit point entity',
       ),
       array(
         403,
-        '/content_entity_example_contact/' . $contact_id . '/edit',
+        '/content_entity_example_point/' . $point_id . '/edit',
         '',
       ),
       array(
         200,
-        '/contact/' . $contact_id . '/delete',
-        'delete contact entity',
+        '/point/' . $point_id . '/delete',
+        'delete point entity',
       ),
       array(
         403,
-        '/contact/' . $contact_id . '/delete',
+        '/point/' . $point_id . '/delete',
         '',
       ),
       array(
         200,
-        'admin/structure/content_entity_example_contact_settings',
-        'administer contact entity',
+        'admin/structure/content_entity_example_point_settings',
+        'administer point entity',
       ),
       array(
         403,
-        'admin/structure/content_entity_example_contact_settings',
+        'admin/structure/content_entity_example_point_settings',
         '',
       ),
     );
   }
 
   /**
-   * Test add new fields to the contact entity.
+   * Test add new fields to the point entity.
    */
   public function testAddFields() {
     $web_user = $this->drupalCreateUser(array(
-      'administer contact entity',
-      'administer content_entity_example_contact display',
-      'administer content_entity_example_contact fields',
-      'administer content_entity_example_contact form display',
+      'administer point entity',
+      'administer content_entity_example_point display',
+      'administer content_entity_example_point fields',
+      'administer content_entity_example_point form display',
     ));
 
     $this->drupalLogin($web_user);
-    $entity_name = 'content_entity_example_contact';
+    $entity_name = 'content_entity_example_point';
     $add_field_url = 'admin/structure/' . $entity_name . '_settings/fields/add-field';
     $this->drupalGet($add_field_url);
     $field_name = 'test_name';
