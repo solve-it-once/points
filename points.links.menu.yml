@@ -1,0 +1,12 @@
+# Define the menu links for this module
+
+entity.points_point.collection:
+  title: 'Points: Points Listing'
+  route_name: entity.points_point.collection
+  description: 'List Points'
+  weight: 10
+points_point.admin.structure.settings:
+  title: Point Settings
+  description: 'Configure Point entity'
+  route_name:  points.point_settings
+  parent: system.admin_structure

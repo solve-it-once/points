@@ -1,15 +1,15 @@
 <?php
 
-namespace Drupal\content_entity_example\Form;
+namespace Drupal\points\Form;
 
 use Drupal\Core\Entity\ContentEntityForm;
 use Drupal\Core\Language\Language;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Form controller for the content_entity_example entity edit forms.
+ * Form controller for the points entity edit forms.
  *
- * @ingroup content_entity_example
+ * @ingroup points
  */
 class PointForm extends ContentEntityForm {
 
@@ -17,7 +17,7 @@ class PointForm extends ContentEntityForm {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    /* @var $entity \Drupal\content_entity_example\Entity\Point */
+    /* @var $entity \Drupal\points\Entity\Point */
     $form = parent::buildForm($form, $form_state);
     $entity = $this->entity;
 
@@ -34,7 +34,7 @@ class PointForm extends ContentEntityForm {
    * {@inheritdoc}
    */
   public function save(array $form, FormStateInterface $form_state) {
-    $form_state->setRedirect('entity.content_entity_example_point.collection');
+    $form_state->setRedirect('entity.points_point.collection');
     $entity = $this->getEntity();
     $entity->save();
   }

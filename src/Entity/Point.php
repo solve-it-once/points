@@ -1,19 +1,19 @@
 <?php
 
-namespace Drupal\content_entity_example\Entity;
+namespace Drupal\points\Entity;
 
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
-use Drupal\content_entity_example\PointInterface;
+use Drupal\points\PointInterface;
 use Drupal\user\UserInterface;
 use Drupal\Core\Entity\EntityChangedTrait;
 
 /**
- * Defines the ContentEntityExample entity.
+ * Defines the Point entity.
  *
- * @ingroup content_entity_example
+ * @ingroup points
  *
  * This is the main definition of the entity type. From it, an entityType is
  * derived. The most important properties in this example are listed below.
@@ -70,40 +70,40 @@ use Drupal\Core\Entity\EntityChangedTrait;
  * is read and cached. Don't forget to clear cache after changes.
  *
  * @ContentEntityType(
- *   id = "content_entity_example_point",
+ *   id = "points_point",
  *   label = @Translation("Point entity"),
  *   handlers = {
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
- *     "list_builder" = "Drupal\content_entity_example\Entity\Controller\PointListBuilder",
+ *     "list_builder" = "Drupal\points\Entity\Controller\PointListBuilder",
  *     "form" = {
- *       "add" = "Drupal\content_entity_example\Form\PointForm",
- *       "edit" = "Drupal\content_entity_example\Form\PointForm",
- *       "delete" = "Drupal\content_entity_example\Form\PointDeleteForm",
+ *       "add" = "Drupal\points\Form\PointForm",
+ *       "edit" = "Drupal\points\Form\PointForm",
+ *       "delete" = "Drupal\points\Form\PointDeleteForm",
  *     },
- *     "access" = "Drupal\content_entity_example\PointAccessControlHandler",
+ *     "access" = "Drupal\points\PointAccessControlHandler",
  *   },
  *   list_cache_contexts = { "user" },
  *   base_table = "point",
- *   admin_permission = "administer content_entity_example entity",
+ *   admin_permission = "administer points entity",
  *   entity_keys = {
  *     "id" = "id",
  *     "label" = "name",
  *     "uuid" = "uuid"
  *   },
  *   links = {
- *     "canonical" = "/content_entity_example_point/{content_entity_example_point}",
- *     "edit-form" = "/content_entity_example_point/{content_entity_example_point}/edit",
- *     "delete-form" = "/point/{content_entity_example_point}/delete",
- *     "collection" = "/content_entity_example_point/list"
+ *     "canonical" = "/points_point/{points_point}",
+ *     "edit-form" = "/points_point/{points_point}/edit",
+ *     "delete-form" = "/point/{points_point}/delete",
+ *     "collection" = "/points_point/list"
  *   },
- *   field_ui_base_route = "content_entity_example.point_settings",
+ *   field_ui_base_route = "points.point_settings",
  * )
  *
  * The 'links' above are defined by their path. For core to find the
  * corresponding route, the route name must follow the correct pattern:
  *
  * entity.<entity-name>.<link-name> (replace dashes with underscores)
- * Example: 'entity.content_entity_example_point.canonical'
+ * Example: 'entity.points_point.canonical'
  *
  * See routing file above for the corresponding implementation
  *
@@ -308,7 +308,7 @@ class Point extends ContentEntityBase implements PointInterface {
 
     $fields['langcode'] = BaseFieldDefinition::create('language')
       ->setLabel(t('Language code'))
-      ->setDescription(t('The language code of ContentEntityExample entity.'));
+      ->setDescription(t('The language code of Point entity.'));
     $fields['created'] = BaseFieldDefinition::create('created')
       ->setLabel(t('Created'))
       ->setDescription(t('The time that the entity was created.'));

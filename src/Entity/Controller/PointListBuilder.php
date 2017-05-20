@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\content_entity_example\Entity\Controller;
+namespace Drupal\points\Entity\Controller;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
@@ -10,9 +10,9 @@ use Drupal\Core\Routing\UrlGeneratorInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Provides a list controller for content_entity_example entity.
+ * Provides a list controller for points entity.
  *
- * @ingroup content_entity_example
+ * @ingroup points
  */
 class PointListBuilder extends EntityListBuilder {
 
@@ -60,8 +60,8 @@ class PointListBuilder extends EntityListBuilder {
    */
   public function render() {
     $build['description'] = array(
-      '#markup' => $this->t('Content Entity Example implements a Point model. These points are fieldable entities. You can manage the fields on the <a href="@adminlink">Points admin page</a>.', array(
-        '@adminlink' => $this->urlGenerator->generateFromRoute('content_entity_example.point_settings'),
+      '#markup' => $this->t('Points Module implements a Point model. These points are fieldable entities. You can manage the fields on the <a href="@adminlink">Points admin page</a>.', array(
+        '@adminlink' => $this->urlGenerator->generateFromRoute('points.point_settings'),
       )),
     );
     $build['table'] = parent::render();
@@ -88,7 +88,7 @@ class PointListBuilder extends EntityListBuilder {
    * {@inheritdoc}
    */
   public function buildRow(EntityInterface $entity) {
-    /* @var $entity \Drupal\content_entity_example\Entity\Point */
+    /* @var $entity \Drupal\points\Entity\Point */
     $row['id'] = $entity->id();
     $row['name'] = $entity->link();
     $row['first_name'] = $entity->first_name->value;

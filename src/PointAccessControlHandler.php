@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\content_entity_example;
+namespace Drupal\points;
 
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Entity\EntityAccessControlHandler;

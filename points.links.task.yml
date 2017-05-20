@@ -1,0 +1,22 @@
+# Define the 'local' links for the module
+
+point.settings_tab:
+  route_name: points.point_settings
+  title: Settings
+  base_route: points.point_settings
+
+point.view:
+  route_name: entity.points_point.canonical
+  base_route: entity.points_point.canonical
+  title: View
+
+point.page_edit:
+  route_name: entity.points_point.edit_form
+  base_route: entity.points_point.canonical
+  title: Edit
+
+point.delete_confirm:
+  route_name:  entity.points_point.delete_form
+  base_route:  entity.points_point.canonical
+  title: Delete
+  weight: 10

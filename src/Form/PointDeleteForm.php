@@ -1,15 +1,15 @@
 <?php
 
-namespace Drupal\content_entity_example\Form;
+namespace Drupal\points\Form;
 
 use Drupal\Core\Entity\ContentEntityConfirmFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 
 /**
- * Provides a form for deleting a content_entity_example entity.
+ * Provides a form for deleting a points entity.
  *
- * @ingroup content_entity_example
+ * @ingroup points
  */
 class PointDeleteForm extends ContentEntityConfirmFormBase {
 
@@ -26,7 +26,7 @@ class PointDeleteForm extends ContentEntityConfirmFormBase {
    * If the delete command is canceled, return to the point list.
    */
   public function getCancelUrl() {
-    return new Url('entity.content_entity_example_point.collection');
+    return new Url('entity.points_point.collection');
   }
 
   /**
@@ -45,12 +45,12 @@ class PointDeleteForm extends ContentEntityConfirmFormBase {
     $entity = $this->getEntity();
     $entity->delete();
 
-    $this->logger('content_entity_example')->notice('@type: deleted %title.',
+    $this->logger('points')->notice('@type: deleted %title.',
       array(
         '@type' => $this->entity->bundle(),
         '%title' => $this->entity->label(),
       ));
-    $form_state->setRedirect('entity.content_entity_example_point.collection');
+    $form_state->setRedirect('entity.points_point.collection');
   }
 
 }

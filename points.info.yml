@@ -1,0 +1,7 @@
+name: Points
+type: module
+description: Define Point Entity Type and its associated functionalities.
+package: Points
+core: 8.x
+dependencies:
+  - drupal:options

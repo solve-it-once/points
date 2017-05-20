@@ -1,0 +1,58 @@
+# This file brings everything together. Very nifty!
+
+# Route name can be used in several places; e.g. links, redirects, and local
+# actions.
+entity.points_point.canonical:
+  path: '/points_point/{points_point}'
+  defaults:
+  # Calls the view controller, defined in the annotation of the point entity
+    _entity_view: 'points_point'
+    _title: 'Point Content'
+  requirements:
+  # Calls the access controller of the entity, $operation 'view'
+    _entity_access: 'points_point.view'
+
+entity.points_point.collection:
+  path: '/points_point/list'
+  defaults:
+  # Calls the list controller, defined in the annotation of the point entity.
+    _entity_list: 'points_point'
+    _title: 'Point List'
+  requirements:
+  # Checks for permission directly.
+    _permission: 'view point entity'
+
+points.point_add:
+  path: '/points_point/add'
+  defaults:
+  # Calls the form.add controller, defined in the point entity.
+    _entity_form: points_point.add
+    _title: 'Add Point'
+  requirements:
+    _entity_create_access: 'points_point'
+
+entity.points_point.edit_form:
+  path: '/points_point/{points_point}/edit'
+  defaults:
+  # Calls the form.edit controller, defined in the point entity.
+    _entity_form: points_point.edit
+    _title: 'Edit Point'
+  requirements:
+    _entity_access: 'points_point.edit'
+
+entity.points_point.delete_form:
+  path: '/point/{points_point}/delete'
+  defaults:
+    # Calls the form.delete controller, defined in the point entity.
+    _entity_form: points_point.delete
+    _title: 'Delete Point'
+  requirements:
+    _entity_access: 'points_point.delete'
+
+points.point_settings:
+  path: 'admin/structure/points_point_settings'
+  defaults:
+    _form: '\Drupal\points\Form\PointSettingsForm'
+    _title: 'Point Settings'
+  requirements:
+    _permission: 'administer point entity'

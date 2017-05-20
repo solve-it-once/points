@@ -1,16 +1,16 @@
 <?php
 
-namespace Drupal\content_entity_example\Form;
+namespace Drupal\points\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Class ContentEntityExampleSettingsForm.
+ * Class PointSettingsForm.
  *
- * @package Drupal\content_entity_example\Form
+ * @package Drupal\points\Form
  *
- * @ingroup content_entity_example
+ * @ingroup points
  */
 class PointSettingsForm extends FormBase {
   /**
@@ -20,7 +20,7 @@ class PointSettingsForm extends FormBase {
    *   The unique string identifying the form.
    */
   public function getFormId() {
-    return 'content_entity_example_settings';
+    return 'points_settings';
   }
 
   /**
@@ -34,7 +34,7 @@ class PointSettingsForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $form['point_settings']['#markup'] = 'Settings form for ContentEntityExample. Manage field settings here.';
+    $form['point_settings']['#markup'] = 'Settings form for Points. Manage field settings here.';
     return $form;
   }
 

@@ -2,12 +2,12 @@
 
 /**
  * @file
- * Contains Drupal\content_entity_example\content_entity_example.module.
+ * Contains Drupal\points\points.module.
  */
 
 /**
- * @defgroup content_entity_example Example: Content Entity
- * @ingroup examples
+ * @defgroup points: Content Entity
+ * @ingroup points
  * @{
  * Implement a Content entity.
  *

@@ -1,28 +1,28 @@
 <?php
 
-namespace Drupal\content_entity_example\Tests;
+namespace Drupal\points\Tests;
 
-use Drupal\content_entity_example\Entity\Point;
+use Drupal\points\Entity\Point;
 use Drupal\Tests\examples\Functional\ExamplesBrowserTestBase;
 
 /**
- * Tests the basic functions of the Content Entity Example module.
+ * Tests the basic functions of the Points Module.
  *
- * @package Drupal\content_entity_example\Tests
+ * @package Drupal\points\Tests
  *
- * @ingroup content_entity_example
+ * @ingroup points
  *
- * @group content_entity_example
+ * @group points
  * @group examples
  */
-class ContentEntityExampleTest extends ExamplesBrowserTestBase {
+class PointsTest extends ExamplesBrowserTestBase {
 
-  public static $modules = array('content_entity_example', 'block', 'field_ui');
+  public static $modules = array('points', 'block', 'field_ui');
 
   /**
-   * Basic tests for Content Entity Example.
+   * Basic tests for Points.
    */
-  public function testContentEntityExample() {
+  public function testPoints() {
     $assert = $this->assertSession();
 
     $web_user = $this->drupalCreateUser(array(
@@ -31,20 +31,20 @@ class ContentEntityExampleTest extends ExamplesBrowserTestBase {
       'view point entity',
       'delete point entity',
       'administer point entity',
-      'administer content_entity_example_point display',
-      'administer content_entity_example_point fields',
-      'administer content_entity_example_point form display',
+      'administer points_point display',
+      'administer points_point fields',
+      'administer points_point form display',
     ));
 
     // Anonymous User should not see the link to the listing.
-    $assert->pageTextNotContains('Content Entity Example: Points Listing');
+    $assert->pageTextNotContains('Points: Points Listing');
 
     $this->drupalLogin($web_user);
 
     // Web_user user has the right to view listing.
-    $assert->linkExists('Content Entity Example: Points Listing');
+    $assert->linkExists('Points: Points Listing');
 
-    $this->clickLink('Content Entity Example: Points Listing');
+    $this->clickLink('Points: Points Listing');
 
     // WebUser can add entity content.
     $assert->linkExists('Add Point');
@@ -91,7 +91,7 @@ class ContentEntityExampleTest extends ExamplesBrowserTestBase {
     $assert->pageTextNotContains('test name');
 
     // Settings page.
-    $this->drupalGet('admin/structure/content_entity_example_point_settings');
+    $this->drupalGet('admin/structure/points_point_settings');
     $assert->pageTextContains('Point Settings');
 
     // Make sure the field manipulation links are available.
@@ -153,42 +153,42 @@ class ContentEntityExampleTest extends ExamplesBrowserTestBase {
     return array(
       array(
         200,
-        '/content_entity_example_point/' . $point_id,
+        '/points_point/' . $point_id,
         'view point entity',
       ),
       array(
         403,
-        '/content_entity_example_point/' . $point_id,
+        '/points_point/' . $point_id,
         '',
       ),
       array(
         200,
-        '/content_entity_example_point/list',
+        '/points_point/list',
         'view point entity',
       ),
       array(
         403,
-        '/content_entity_example_point/list',
+        '/points_point/list',
         '',
       ),
       array(
         200,
-        '/content_entity_example_point/add',
+        '/points_point/add',
         'add point entity',
       ),
       array(
         403,
-        '/content_entity_example_point/add',
+        '/points_point/add',
         '',
       ),
       array(
         200,
-        '/content_entity_example_point/' . $point_id . '/edit',
+        '/points_point/' . $point_id . '/edit',
         'edit point entity',
       ),
       array(
         403,
-        '/content_entity_example_point/' . $point_id . '/edit',
+        '/points_point/' . $point_id . '/edit',
         '',
       ),
       array(
@@ -203,12 +203,12 @@ class ContentEntityExampleTest extends ExamplesBrowserTestBase {
       ),
       array(
         200,
-        'admin/structure/content_entity_example_point_settings',
+        'admin/structure/points_point_settings',
         'administer point entity',
       ),
       array(
         403,
-        'admin/structure/content_entity_example_point_settings',
+        'admin/structure/points_point_settings',
         '',
       ),
     );
@@ -220,13 +220,13 @@ class ContentEntityExampleTest extends ExamplesBrowserTestBase {
   public function testAddFields() {
     $web_user = $this->drupalCreateUser(array(
       'administer point entity',
-      'administer content_entity_example_point display',
-      'administer content_entity_example_point fields',
-      'administer content_entity_example_point form display',
+      'administer points_point display',
+      'administer points_point fields',
+      'administer points_point form display',
     ));
 
     $this->drupalLogin($web_user);
-    $entity_name = 'content_entity_example_point';
+    $entity_name = 'points_point';
     $add_field_url = 'admin/structure/' . $entity_name . '_settings/fields/add-field';
     $this->drupalGet($add_field_url);
     $field_name = 'test_name';
