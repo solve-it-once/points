@@ -78,9 +78,7 @@ class PointListBuilder extends EntityListBuilder {
    */
   public function buildHeader() {
     $header['id'] = $this->t('PointID');
-    $header['name'] = $this->t('Name');
-    $header['first_name'] = $this->t('First Name');
-    $header['gender'] = $this->t('Gender');
+    $header['points'] =  $this->t('Points');
     return $header + parent::buildHeader();
   }
 
@@ -90,9 +88,7 @@ class PointListBuilder extends EntityListBuilder {
   public function buildRow(EntityInterface $entity) {
     /* @var $entity \Drupal\points\Entity\Point */
     $row['id'] = $entity->id();
-    $row['name'] = $entity->link();
-    $row['first_name'] = $entity->first_name->value;
-    $row['gender'] = $entity->gender->value;
+    $row['points'] = $entity->points->value;
     return $row + parent::buildRow($entity);
   }
 

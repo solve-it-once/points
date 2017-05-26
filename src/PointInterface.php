@@ -3,7 +3,6 @@
 namespace Drupal\points;
 
 use Drupal\Core\Entity\ContentEntityInterface;
-use Drupal\user\EntityOwnerInterface;
 use Drupal\Core\Entity\EntityChangedInterface;
 
 /**
@@ -13,6 +12,6 @@ use Drupal\Core\Entity\EntityChangedInterface;
  *
  * @ingroup points
  */
-interface PointInterface extends ContentEntityInterface, EntityOwnerInterface, EntityChangedInterface {
+interface PointInterface extends ContentEntityInterface, EntityChangedInterface {
 
 }

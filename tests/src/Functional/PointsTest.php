@@ -51,31 +51,17 @@ class PointsTest extends ExamplesBrowserTestBase {
 
     $this->clickLink(t('Add Point'));
 
-    $assert->fieldValueEquals('name[0][value]', '');
-    $assert->fieldValueEquals('name[0][value]', '');
-    $assert->fieldValueEquals('name[0][value]', '');
 
     $user_ref = $web_user->name->value . ' (' . $web_user->id() . ')';
-    $assert->fieldValueEquals('user_id[0][target_id]', $user_ref);
 
-    // Post content, save an instance. Go back to list after saving.
-    $edit = array(
-      'name[0][value]' => 'test name',
-      'first_name[0][value]' => 'test first name',
-      'gender' => 'male',
-    );
     $this->drupalPostForm(NULL, $edit, t('Save'));
 
     // Entity listed.
     $assert->linkExists('Edit');
     $assert->linkExists('Delete');
 
-    $this->clickLink('test name');
 
     // Entity shown.
-    $assert->pageTextContains('test name');
-    $assert->pageTextContains('test first name');
-    $assert->pageTextContains('male');
     $assert->linkExists('Add Point');
     $assert->linkExists('Edit');
     $assert->linkExists('Delete');
@@ -88,7 +74,6 @@ class PointsTest extends ExamplesBrowserTestBase {
     $this->drupalPostForm(NULL, array(), 'Delete');
 
     // Back to list, must be empty.
-    $assert->pageTextNotContains('test name');
 
     // Settings page.
     $this->drupalGet('admin/structure/points_point_settings');
@@ -110,9 +95,6 @@ class PointsTest extends ExamplesBrowserTestBase {
     // Generate a point so that we can test the paths against it.
     $point = Point::create(
       array(
-        'name' => 'somename',
-        'first_name' => 'Joe',
-        'gender' => 'female',
       )
     );
     $point->save();
@@ -229,11 +211,7 @@ class PointsTest extends ExamplesBrowserTestBase {
     $entity_name = 'points_point';
     $add_field_url = 'admin/structure/' . $entity_name . '_settings/fields/add-field';
     $this->drupalGet($add_field_url);
-    $field_name = 'test_name';
     $edit = array(
-      'new_storage_type' => 'list_string',
-      'label' => 'test name',
-      'field_name' => $field_name,
     );
 
     $this->drupalPostForm(NULL, $edit, t('Save and continue'));
