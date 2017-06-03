@@ -1,22 +1,18 @@
-# Define the 'local' links for the module
+# Point routing definition
 
-point.settings_tab:
-  route_name: points.point_settings
-  title: Settings
-  base_route: points.point_settings
+entity.point.canonical:
+  route_name: entity.point.canonical
+  base_route: entity.point.canonical
+  title: 'View'
 
-point.view:
-  route_name: entity.points_point.canonical
-  base_route: entity.points_point.canonical
-  title: View
+entity.point.edit_form:
+  route_name: entity.point.edit_form
+  base_route: entity.point.canonical
+  title: 'Edit'
 
-point.page_edit:
-  route_name: entity.points_point.edit_form
-  base_route: entity.points_point.canonical
-  title: Edit
-
-point.delete_confirm:
-  route_name:  entity.points_point.delete_form
-  base_route:  entity.points_point.canonical
+entity.point.delete_form:
+  route_name:  entity.point.delete_form
+  base_route:  entity.point.canonical
   title: Delete
   weight: 10
+

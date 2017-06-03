@@ -13,6 +13,7 @@ use Drupal\Core\Form\FormStateInterface;
  * @ingroup points
  */
 class PointSettingsForm extends FormBase {
+
   /**
    * Returns a unique string identifying the form.
    *
@@ -20,21 +21,34 @@ class PointSettingsForm extends FormBase {
    *   The unique string identifying the form.
    */
   public function getFormId() {
-    return 'points_settings';
+    return 'Point_settings';
   }
 
   /**
-   * {@inheritdoc}
+   * Form submission handler.
+   *
+   * @param array $form
+   *   An associative array containing the structure of the form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     // Empty implementation of the abstract submit class.
   }
 
   /**
-   * {@inheritdoc}
+   * Defines the settings form for Point entities.
+   *
+   * @param array $form
+   *   An associative array containing the structure of the form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
+   *
+   * @return array
+   *   Form definition array.
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $form['point_settings']['#markup'] = 'Settings form for Points. Manage field settings here.';
+    $form['Point_settings']['#markup'] = 'Settings form for Point entities. Manage field settings here.';
     return $form;
   }
 

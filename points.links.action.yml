@@ -1,11 +1,11 @@
-# All action links for this module
-
-points.point_add:
-  # Which route will be called by the link
-  route_name: points.point_add
+entity.point.add_form:
+  route_name: 'entity.point.add_page'
   title: 'Add Point'
-
-  # Where will the link appear, defined by route name.
   appears_on:
-    - entity.points_point.collection
-    - entity.points_point.canonical
+    - entity.point.collection
+entity.point_type.add_form:
+  route_name: 'entity.point_type.add_form'
+  title: 'Add Point type'
+  appears_on:
+    - entity.point_type.collection
+

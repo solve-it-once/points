@@ -2,46 +2,43 @@
 
 namespace Drupal\points;
 
-use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Entity\EntityAccessControlHandler;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\Access\AccessResult;
 
 /**
- * Access controller for the comment entity.
+ * Access controller for the Point entity.
  *
- * @see \Drupal\comment\Entity\Comment.
+ * @see \Drupal\points\Entity\Point.
  */
 class PointAccessControlHandler extends EntityAccessControlHandler {
 
   /**
    * {@inheritdoc}
-   *
-   * Link the activities to the permissions. checkAccess is called with the
-   * $operation as defined in the routing.yml file.
    */
   protected function checkAccess(EntityInterface $entity, $operation, AccountInterface $account) {
+    /** @var \Drupal\points\Entity\PointInterface $entity */
     switch ($operation) {
       case 'view':
-        return AccessResult::allowedIfHasPermission($account, 'view point entity');
+        return AccessResult::allowedIfHasPermission($account, 'view point entities');
 
-      case 'edit':
-        return AccessResult::allowedIfHasPermission($account, 'edit point entity');
+      case 'update':
+        return AccessResult::allowedIfHasPermission($account, 'edit point entities');
 
       case 'delete':
-        return AccessResult::allowedIfHasPermission($account, 'delete point entity');
+        return AccessResult::allowedIfHasPermission($account, 'delete point entities');
     }
-    return AccessResult::allowed();
+
+    // Unknown operation, no opinion.
+    return AccessResult::neutral();
   }
 
   /**
    * {@inheritdoc}
-   *
-   * Separate from the checkAccess because the entity does not yet exist, it
-   * will be created during the 'add' process.
    */
   protected function checkCreateAccess(AccountInterface $account, array $context, $entity_bundle = NULL) {
-    return AccessResult::allowedIfHasPermission($account, 'add point entity');
+    return AccessResult::allowedIfHasPermission($account, 'add point entities');
   }
 
 }

@@ -6,7 +6,7 @@ use Drupal\Core\Entity\ContentEntityForm;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Form controller for the points entity edit forms.
+ * Form controller for Point edit forms.
  *
  * @ingroup points
  */
@@ -19,6 +19,8 @@ class PointForm extends ContentEntityForm {
     /* @var $entity \Drupal\points\Entity\Point */
     $form = parent::buildForm($form, $form_state);
 
+    $entity = $this->entity;
+
     return $form;
   }
 
@@ -26,9 +28,23 @@ class PointForm extends ContentEntityForm {
    * {@inheritdoc}
    */
   public function save(array $form, FormStateInterface $form_state) {
-    $form_state->setRedirect('entity.points_point.collection');
-    $entity = $this->getEntity();
-    $entity->save();
+    $entity = &$this->entity;
+
+    $status = parent::save($form, $form_state);
+
+    switch ($status) {
+      case SAVED_NEW:
+        drupal_set_message($this->t('Created the %label Point.', [
+          '%label' => $entity->label(),
+        ]));
+        break;
+
+      default:
+        drupal_set_message($this->t('Saved the %label Point.', [
+          '%label' => $entity->label(),
+        ]));
+    }
+    $form_state->setRedirect('entity.point.canonical', ['point' => $entity->id()]);
   }
 
 }
