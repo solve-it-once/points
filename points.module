@@ -1,0 +1,33 @@
+<?php
+
+use Drupal\points\Entity\PointTypeInterface;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
+
+/**
+ * Adds the default number field to a point type.
+ *
+ * @param \Drupal\points\Entity\PointTypeInterface $type
+ *   A point type object.
+ * @param string $label
+ *   (optional) The label for the points instance.
+ *
+ * @return \Drupal\field\Entity\FieldConfig
+ *   A Points field object.
+ */
+function points_add_number_field(PointTypeInterface $type, $label = 'points') {
+  // Add or remove the points field, as needed.
+  $field_storage = FieldStorageConfig::loadByName('point', 'points');
+  $field = FieldConfig::loadByName('point', $type->id(), 'points');
+  if (empty($field)) {
+    $field = FieldConfig::create([
+      'field_storage' => $field_storage,
+      'bundle' => $type->id(),
+      'label' => $label,
+      'settings' => ['default_value' => 0],
+    ]);
+    $field->save();
+  }
+
+  return $field;
+}

@@ -51,6 +51,7 @@ class PointTypeForm extends EntityForm {
 
     switch ($status) {
       case SAVED_NEW:
+        points_add_number_field($point_type);
         drupal_set_message($this->t('Created the %label Point type.', [
           '%label' => $point_type->label(),
         ]));
