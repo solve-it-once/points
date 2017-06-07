@@ -15,7 +15,7 @@ entity.point_type.collection:
     _permission: 'administer point entities'
 
 entity.points.collection:
-  path: '/admin/structure/points/list'
+  path: '/admin/structure/points/overview'
   defaults:
   # Calls the list controller, defined in the annotation of the point entity.
     _entity_list: 'point'
