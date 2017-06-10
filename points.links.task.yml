@@ -16,3 +16,6 @@ entity.point.delete_form:
   title: Delete
   weight: 10
 
+points.tab.on.referencing.entity:
+  deriver: \Drupal\points\Plugin\Derivative\PointsLocalTask
+

@@ -23,3 +23,6 @@ entity.points.collection:
   requirements:
   # Checks for permission directly.
     _permission: 'access point overview'
+
+route_callbacks:
+  - '\Drupal\points\Routing\PointsMovementRoutes::routes'

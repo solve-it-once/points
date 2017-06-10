@@ -44,7 +44,7 @@ class PointMovement extends ContentEntityBase implements PointMovementInterface 
       ->setDisplayConfigurable('view', TRUE);
 
     $fields['points'] = BaseFieldDefinition::create('decimal')
-      ->setLabel(t('Points Number'))
+      ->setLabel(t('Points changed'))
       ->setDescription(t('This is a number that records points of this movement.'))
       ->setSetting('unsigned', FALSE)
       ->setDisplayConfigurable('form', TRUE)
