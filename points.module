@@ -3,6 +3,10 @@
 use Drupal\points\Entity\PointTypeInterface;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\Display\EntityFormDisplayInterface;
+use Drupal\Core\Entity\Entity\EntityFormDisplay;
+use Drupal\field\FieldConfigInterface;
 
 /**
  * Adds the default number field to a point type.
@@ -44,4 +48,34 @@ function points_add_number_field(PointTypeInterface $type, $label = 'points') {
     ->save();
 
   return $field;
+}
+
+/**
+ * Implement hook_entity_presave().
+ * Change the default widget form entity_reference to IEF if the target is Point
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ */
+function points_entity_presave(EntityInterface $entity) {
+  if ($entity instanceof FieldConfigInterface && !$entity->isDeleted()) {
+    /** @var \Drupal\field\FieldConfigInterface $entity */
+    if ($entity->getType() === 'entity_reference' && $entity->getSetting('target_type') === 'point') {
+      // TODO don't hard code EntityFormDisplay type -- default
+      $display_form_id = $entity->getTargetEntityTypeId(). '.' .$entity->getTargetBundle().'.default';
+      $entity_form_display = EntityFormDisplay::load($display_form_id);
+      $config_copy = $entity_form_display->get('content');
+      // If the widget is already IEF, then we don't override the settings at all
+      if ($config_copy[$entity->getName()]['type'] !== 'inline_entity_form_simple') {
+        $config_copy[$entity->getName()]['type'] = 'inline_entity_form_simple';
+        $config_copy[$entity->getName()]['settings'] = [
+          'form_mode' => 'default',
+          'override_labels' => false,
+          'label_singular' => '',
+          'label_plural' => ''
+        ];
+        $entity_form_display->set('content', $config_copy);
+        $entity_form_display->save();
+      }
+    }
+  }
 }
