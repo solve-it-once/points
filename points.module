@@ -4,8 +4,8 @@ use Drupal\points\Entity\PointTypeInterface;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\Core\Entity\Display\EntityFormDisplayInterface;
 use Drupal\Core\Entity\Entity\EntityFormDisplay;
+use Drupal\Core\Entity\Entity\EntityViewDisplay;
 use Drupal\field\FieldConfigInterface;
 
 /**
@@ -65,17 +65,27 @@ function points_entity_presave(EntityInterface $entity) {
       $entity_form_display = EntityFormDisplay::load($display_form_id);
       $config_copy = $entity_form_display->get('content');
       // If the widget is already IEF, then we don't override the settings at all
-      if ($config_copy[$entity->getName()]['type'] !== 'inline_entity_form_simple') {
-        $config_copy[$entity->getName()]['type'] = 'inline_entity_form_simple';
-        $config_copy[$entity->getName()]['settings'] = [
-          'form_mode' => 'default',
-          'override_labels' => false,
-          'label_singular' => '',
-          'label_plural' => ''
-        ];
-        $entity_form_display->set('content', $config_copy);
-        $entity_form_display->save();
+      if ($config_copy[$entity->getName()]['type'] === 'inline_entity_form_simple') {
+        return;
       }
+      // Set IEF form
+      $config_copy[$entity->getName()]['type'] = 'inline_entity_form_simple';
+      $config_copy[$entity->getName()]['settings'] = [
+        'form_mode' => 'default',
+        'override_labels' => false,
+        'label_singular' => '',
+        'label_plural' => ''
+      ];
+      $entity_form_display->set('content', $config_copy);
+      $entity_form_display->save();
+
+      // Set rendered entity view for Point Entity
+      $entity_view_display = EntityViewDisplay::load($display_form_id);
+      $config_copy = $entity_view_display->get('content');
+      $config_copy[$entity->getName()]['type'] = 'entity_reference_entity_view';
+      $config_copy[$entity->getName()]['settings']['view_mode'] = 'default';
+      $entity_view_display->set('content', $config_copy);
+      $entity_view_display->save();
     }
   }
 }
