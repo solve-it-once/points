@@ -45,13 +45,14 @@ class PointsLocalTask extends DeriverBase implements ContainerDeriverInterface {
    */
   public function getDerivativeDefinitions($base_plugin_definition) {
     $derivatives = [];
-    $config_entities = \Drupal::entityTypeManager()->getStorage('field_storage_config')->loadMultiple();
+    $config_entities = \Drupal::entityTypeManager()->getStorage('field_config')->loadMultiple();
     foreach ($config_entities as $config_entity) {
-      if ($config_entity->get('type') === 'entity_reference' && $config_entity->get('settings')['target_type'] === 'point') {
+      $handler = explode(':', $config_entity->getSetting('handler'));
+      if ($config_entity->getType() === 'entity_reference' && $handler[1] === 'point') {
         $entity_type_id = $config_entity->get('entity_type');
         $derivatives[$entity_type_id . '.points'] = [
           'route_name' => "entity.$entity_type_id.points.movement",
-          'title' => $this->t('Points'),
+          'title' => $this->t($config_entity->getLabel()),
           'base_route' => 'entity.' . $entity_type_id . '.canonical',
           'weight' => 50,
         ];
