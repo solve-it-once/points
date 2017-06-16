@@ -46,4 +46,9 @@ interface PointInterface extends  ContentEntityInterface, EntityChangedInterface
    */
   public function setPoints($points);
 
+  /**
+   * @return string
+   */
+  public function getLog();
+
 }

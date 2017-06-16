@@ -90,6 +90,13 @@ class Point extends ContentEntityBase implements PointInterface {
   /**
    * {@inheritdoc}
    */
+  public function getLog() {
+    return $this->get('log')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
     $fields = parent::baseFieldDefinitions($entity_type);
 
@@ -100,6 +107,26 @@ class Point extends ContentEntityBase implements PointInterface {
     $fields['changed'] = BaseFieldDefinition::create('changed')
       ->setLabel(t('Changed'))
       ->setDescription(t('The time that the entity was last edited.'));
+
+    $fields['log'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Log'))
+      ->setDescription(t('The description of the pending movement.'))
+      ->setSettings([
+        'default_value' => '',
+        'max_length' => 255,
+      ])
+      ->setDisplayOptions('view', [
+        'label' => 'hidden',
+        'type' => 'string',
+        'weight' => 50,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'string_textfield',
+        'weight' => -5,
+      ])
+      ->setDisplayConfigurable('form', FALSE)
+      ->setDisplayConfigurable('view', FALSE)
+      ->setCustomStorage(TRUE);
 
     return $fields;
   }
@@ -135,7 +162,7 @@ class Point extends ContentEntityBase implements PointInterface {
       $result = $query->condition('id', $this->id())->execute();
       if ($result) {
         $points = $this->point_delta;
-        $this->createTransaction($this->id(), $points,0, NULL);
+        $this->createTransaction($this->id(), $points,0, $this->getLog());
       }
     }
   }
