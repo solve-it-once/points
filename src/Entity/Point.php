@@ -7,7 +7,7 @@ use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityChangedTrait;
 use Drupal\Core\Entity\EntityTypeInterface;
-use Drupal\user\UserInterface;
+use Drupal\points\Exception\PointsStaleStateException;
 
 /**
  * Defines the Point entity.
@@ -29,6 +29,7 @@ use Drupal\user\UserInterface;
  *       "edit" = "Drupal\points\Form\PointForm",
  *       "delete" = "Drupal\points\Form\PointDeleteForm",
  *     },
+ *     "inline_form" = "Drupal\points\Form\PointInlineForm",
  *     "access" = "Drupal\points\PointAccessControlHandler",
  *     "route_provider" = {
  *       "default" = "Drupal\Core\Entity\Routing\AdminHtmlRouteProvider",
@@ -97,6 +98,13 @@ class Point extends ContentEntityBase implements PointInterface {
   /**
    * {@inheritdoc}
    */
+  public function getState() {
+    return $this->get('state')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
     $fields = parent::baseFieldDefinitions($entity_type);
 
@@ -128,6 +136,22 @@ class Point extends ContentEntityBase implements PointInterface {
       ->setDisplayConfigurable('view', FALSE)
       ->setCustomStorage(TRUE);
 
+    $fields['state'] = BaseFieldDefinition::create('decimal')
+      ->setLabel(t('State'))
+      ->setDescription(t('The state of Point; when the state is the same as the current points field, it is valid'))
+      ->setSettings([
+        'default_value' => '0'
+      ])
+      ->setDisplayOptions('view', [
+        'type' => 'hidden',
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'hidden',
+      ])
+      ->setDisplayConfigurable('form', FALSE)
+      ->setDisplayConfigurable('view', FALSE)
+      ->setCustomStorage(TRUE);
+
     return $fields;
   }
 
@@ -143,6 +167,10 @@ class Point extends ContentEntityBase implements PointInterface {
     }
     else {
       $original_point = $this->original->get('points')->value;
+    }
+
+    if ($this->getState() != $original_point) {
+      throw new PointsStaleStateException('The current state: ' . $this->getState() .' is no longer valid.');
     }
 
     $new_point = $this->get('points')->value;

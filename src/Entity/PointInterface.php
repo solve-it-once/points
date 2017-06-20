@@ -51,4 +51,9 @@ interface PointInterface extends  ContentEntityInterface, EntityChangedInterface
    */
   public function getLog();
 
+  /**
+   * @return double
+   */
+  public function getState();
+
 }
