@@ -46,7 +46,7 @@ display:
       pager:
         type: mini
         options:
-          items_per_page: 10
+          items_per_page: 50
           offset: 0
           id: 0
           total_pages: null
@@ -356,7 +356,22 @@ display:
           entity_field: description
           plugin_id: field
       filters: {  }
-      sorts: {  }
+      sorts:
+        changed:
+          id: changed
+          table: point_movement
+          field: changed
+          relationship: none
+          group_type: group
+          admin_label: ''
+          order: DESC
+          exposed: false
+          expose:
+            label: ''
+          granularity: second
+          entity_type: point_movement
+          entity_field: changed
+          plugin_id: date
       header: {  }
       footer: {  }
       empty: {  }
