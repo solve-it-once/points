@@ -51,7 +51,10 @@ use Drupal\points\Exception\PointsStaleStateException;
  *     "collection" = "/admin/structure/points/overview",
  *   },
  *   bundle_entity_type = "point_type",
- *   field_ui_base_route = "entity.point_type.edit_form"
+ *   field_ui_base_route = "entity.point_type.edit_form",
+ *   constraints = {
+ *     "PointState" = {}
+ *   }
  * )
  */
 class Point extends ContentEntityBase implements PointInterface {
@@ -167,10 +170,6 @@ class Point extends ContentEntityBase implements PointInterface {
     }
     else {
       $original_point = $this->original->get('points')->value;
-    }
-
-    if ($this->getState() != $original_point) {
-      throw new PointsStaleStateException('The current state: ' . $this->getState() .' is no longer valid.');
     }
 
     $new_point = $this->get('points')->value;
