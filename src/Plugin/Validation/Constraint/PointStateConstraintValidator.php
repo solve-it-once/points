@@ -17,9 +17,13 @@ class PointStateConstraintValidator extends ConstraintValidator {
     if (isset($entity)) {
       /** @var \Drupal\points\Entity\PointInterface $entity */
       if (!$entity->isNew()) {
-        $state = $entity->getState();
-        $saved_point = \Drupal::entityTypeManager()->getStorage('point')->loadUnchanged($entity->id());
-        if ($state != $saved_point->getPoints()) {
+        $last_movement = $entity->getPreviousMovement();
+        $query = \Drupal::entityQuery('point_movement')
+          ->condition('point_id', $entity->id())
+          ->sort('changed', 'DESC')
+          ->range(0, 1);
+        $result = $query->execute();
+        if (!$last_movement || $last_movement->id() != array_pop($result)) {
           $this->context->addViolation($constraint->message);
         }
       }

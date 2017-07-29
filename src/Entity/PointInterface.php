@@ -4,8 +4,6 @@ namespace Drupal\points\Entity;
 
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityChangedInterface;
-use Drupal\Core\Session\AccountInterface;
-use Drupal\user\EntityOwnerInterface;
 
 /**
  * Provides an interface for defining Point entities.
@@ -52,8 +50,8 @@ interface PointInterface extends  ContentEntityInterface, EntityChangedInterface
   public function getLog();
 
   /**
-   * @return double
+   * @return \Drupal\points\Entity\PointMovement
    */
-  public function getState();
+  public function getPreviousMovement();
 
 }
