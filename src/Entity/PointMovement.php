@@ -36,11 +36,11 @@ class PointMovement extends ContentEntityBase implements PointMovementInterface 
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
     $fields = parent::baseFieldDefinitions($entity_type);
 
-    $fields['point_id'] = BaseFieldDefinition::create('integer')
-      ->setLabel(t('Point ID'))
-      ->setDescription(t('The id of a point entity.'))
-      ->setSetting('unsigned', TRUE)
-      ->setDisplayConfigurable('form', TRUE)
+    $fields['point_id'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('Point'))
+      ->setDescription(t('The parent point.'))
+      ->setSetting('target_type', 'point')
+      ->setReadOnly(TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
     $fields['points'] = BaseFieldDefinition::create('decimal')
@@ -49,14 +49,13 @@ class PointMovement extends ContentEntityBase implements PointMovementInterface 
       ->setSetting('unsigned', FALSE)
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
-    // todo: point type
 
-    $fields['uid'] = BaseFieldDefinition::create('integer')
-      ->setLabel(t('User ID'))
-      ->setDescription(t('The user id of a user who is responsible for this change.'))
+    $fields['uid'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('User'))
+      ->setDescription(t('The user who operated on the point.'))
       ->setSetting('target_type', 'user')
       ->setSetting('handler', 'default')
-      ->setDisplayConfigurable('form', TRUE)
+      ->setReadOnly(TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
     $fields['changed'] = BaseFieldDefinition::create('changed')
