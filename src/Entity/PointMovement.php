@@ -40,6 +40,7 @@ class PointMovement extends ContentEntityBase implements PointMovementInterface 
       ->setLabel(t('Point'))
       ->setDescription(t('The parent point.'))
       ->setSetting('target_type', 'point')
+      ->setReadOnly(TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
     $fields['points'] = BaseFieldDefinition::create('decimal')
@@ -82,20 +83,4 @@ class PointMovement extends ContentEntityBase implements PointMovementInterface 
 
     return $fields;
   }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setPointId($point_id) {
-    $this->set('point_id', $point_id);
-    return $this;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getPointId() {
-    return $this->get('point_id')->target_id;
-  }
 }
-

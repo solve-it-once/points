@@ -15,6 +15,25 @@ class PointForm extends ContentEntityForm {
   /**
    * {@inheritdoc}
    */
+  public function buildForm(array $form, FormStateInterface $form_state) {
+    /* @var $entity \Drupal\points\Entity\Point */
+    $form = parent::buildForm($form, $form_state);
+    $entity = $this->entity;
+    $user_inputs = $form_state->getUserInput();
+    $points_inputs = $user_inputs['state'];
+    $form['state']['#type'] = 'hidden';
+    if (!$user_inputs) {
+      $form['state']['#value'] =$entity->getPoints();
+    } else {
+      $form['state']['#value'] = $points_inputs;
+    }
+
+    return $form;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function save(array $form, FormStateInterface $form_state) {
     $entity = &$this->entity;
 

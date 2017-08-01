@@ -28,7 +28,7 @@ use Drupal\Core\Entity\EntityTypeInterface;
  *       "edit" = "Drupal\points\Form\PointForm",
  *       "delete" = "Drupal\points\Form\PointDeleteForm",
  *     },
- *     "inline_form" = "Drupal\inline_entity_form\Form\EntityInlineForm",
+ *     "inline_form" = "Drupal\points\Form\PointInlineForm",
  *     "access" = "Drupal\points\PointAccessControlHandler",
  *     "route_provider" = {
  *       "default" = "Drupal\Core\Entity\Routing\AdminHtmlRouteProvider",
@@ -100,13 +100,8 @@ class Point extends ContentEntityBase implements PointInterface {
   /**
    * {@inheritdoc}
    */
-  public function getPreviousMovement() {
-    return $this->get('mid')->entity;
-  }
-
-  private function setPreviousMovement($mid) {
-    $this->set('mid', $mid);
-    return $this;
+  public function getState() {
+    return $this->get('state')->value;
   }
 
   /**
@@ -143,13 +138,21 @@ class Point extends ContentEntityBase implements PointInterface {
       ->setDisplayConfigurable('view', FALSE)
       ->setCustomStorage(TRUE);
 
-    // The movement reference, populated by Point::preSave().
-    $fields['mid'] = BaseFieldDefinition::create('entity_reference')
-      ->setLabel(t('Previous movement'))
-      ->setDescription(t('The latest movement of this point instance.'))
-      ->setSetting('target_type', 'point_movement')
-      ->setReadOnly(TRUE)
-      ->setDisplayConfigurable('view', TRUE);
+    $fields['state'] = BaseFieldDefinition::create('decimal')
+      ->setLabel(t('State'))
+      ->setDescription(t('The state of Point; when the state is the same as the current points field, it is valid'))
+      ->setSettings([
+        'default_value' => '0'
+      ])
+      ->setDisplayOptions('view', [
+        'type' => 'hidden',
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'hidden',
+      ])
+      ->setDisplayConfigurable('form', FALSE)
+      ->setDisplayConfigurable('view', FALSE)
+      ->setCustomStorage(TRUE);
 
     return $fields;
   }
@@ -158,19 +161,19 @@ class Point extends ContentEntityBase implements PointInterface {
    * {@inheritdoc}
    */
   public function preSave(EntityStorageInterface $storage) {
-    parent::preSave($storage);
+    parent::postSave($storage);
 
     if ($this->isNew()) {
       $original_point = 0;
-    } else {
+      $this->isNew = TRUE;
+    }
+    else {
       $original_point = $this->original->get('points')->value;
     }
 
     $new_point = $this->get('points')->value;
-    if ($this->isNew() || $original_point != $new_point) {
-      $delta = $new_point - $original_point;
-      $mid = $this->createTransaction($this->id(), $delta,0, $this->getLog());
-      $this->setPreviousMovement($mid);
+    if ($original_point != $new_point) {
+      $this->point_delta = $new_point - $original_point;
     }
   }
 
@@ -178,14 +181,22 @@ class Point extends ContentEntityBase implements PointInterface {
    * {@inheritdoc}
    */
   public function postSave(EntityStorageInterface $storage, $update = TRUE) {
-    $movement = $this->getPreviousMovement();
-    if (!$movement->getPointId()) {
-      $movement->setPointId($this->id());
-      $movement->save();
+    parent::postSave($storage, $update);
+
+    if (isset($this->point_delta)) {
+      $query = \Drupal::entityQuery('point');
+      $result = $query->condition('id', $this->id())->execute();
+      if ($result) {
+        $points = $this->point_delta;
+        $this->createTransaction($this->id(), $points,0, $this->getLog());
+      }
     }
   }
 
-  private function createTransaction($point_id, $points, $uid = 0, $des) {
+  /**
+   * {@inheritdoc}
+   */
+  public function createTransaction($point_id, $points, $uid = 0, $des) {
     if (!$uid) {
       $uid = \Drupal::currentUser()->id();
     }
@@ -202,7 +213,7 @@ class Point extends ContentEntityBase implements PointInterface {
       );
 
     $movement->save();
-    return $movement->id();
   }
+
 }
 
