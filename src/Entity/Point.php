@@ -100,6 +100,14 @@ class Point extends ContentEntityBase implements PointInterface {
   /**
    * {@inheritdoc}
    */
+  public function setLog($log) {
+    $this->set('log', $log);
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getState() {
     return $this->get('state')->value;
   }
@@ -214,6 +222,5 @@ class Point extends ContentEntityBase implements PointInterface {
 
     $movement->save();
   }
-
 }
 

@@ -42,7 +42,7 @@ interface PointInterface extends  ContentEntityInterface, EntityChangedInterface
 
   /**
    * @param double $points
-   * @return double
+   * @return \Drupal\points\Entity\PointInterface
    */
   public function setPoints($points);
 
@@ -50,6 +50,12 @@ interface PointInterface extends  ContentEntityInterface, EntityChangedInterface
    * @return string
    */
   public function getLog();
+
+  /**
+   * @param string $log
+   * @return \Drupal\points\Entity\PointInterface
+   */
+  public function setLog($log);
 
   /**
    * @return double
