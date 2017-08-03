@@ -18,7 +18,10 @@ class PointInlineForm extends EntityInlineForm {
     /** @var \Drupal\points\Entity\Point $entity */
     $entity = $entity_form['#entity'];
     $user_inputs = $form_state->getUserInput();
-    $points_inputs = $user_inputs[$entity_form['#parents'][0]];
+    $points_inputs = NULL;
+    if ($user_inputs) {
+      $points_inputs = $user_inputs[$entity_form['#parents'][0]];
+    }
     // Check if user has submit a point entity data
     if (!$points_inputs) {
       $entity_form['state'] = [
