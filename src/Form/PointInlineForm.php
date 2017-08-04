@@ -19,7 +19,7 @@ class PointInlineForm extends EntityInlineForm {
     $entity = $entity_form['#entity'];
     $user_inputs = $form_state->getUserInput();
     $points_inputs = NULL;
-    if ($user_inputs) {
+    if (array_key_exists($entity_form['#parents'][0], $user_inputs)) {
       $points_inputs = $user_inputs[$entity_form['#parents'][0]];
     }
     // Check if user has submit a point entity data
