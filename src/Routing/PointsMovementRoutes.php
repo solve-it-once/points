@@ -30,7 +30,7 @@ class PointsMovementRoutes {
           ],
           // Route requirements:
           [
-            '_permission'  => 'access point overview',
+            '_permission'  => 'view point entities',
           ]
         );
       }
