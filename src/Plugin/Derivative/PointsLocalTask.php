@@ -50,8 +50,9 @@ class PointsLocalTask extends DeriverBase implements ContainerDeriverInterface {
       $handler = explode(':', $config_entity->getSetting('handler'));
       if ($config_entity->getType() === 'entity_reference' && $handler[1] === 'point') {
         $entity_type_id = $config_entity->get('entity_type');
-        $derivatives[$entity_type_id . '.points'] = [
-          'route_name' => "entity.$entity_type_id.points.movement",
+        $field_name = substr($config_entity->get('field_name'), 6);
+        $derivatives[$entity_type_id . '.points.'.$field_name] = [
+          'route_name' => "entity.$entity_type_id.points.movement.$field_name",
           'title' => $this->t($config_entity->getLabel()),
           'base_route' => 'entity.' . $entity_type_id . '.canonical',
           'weight' => 50,

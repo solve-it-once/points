@@ -50,8 +50,8 @@ class EntityPointsMovementController extends ControllerBase {
 
     $config_entities = \Drupal::entityTypeManager()->getStorage('field_storage_config')->loadMultiple();
     foreach ($config_entities as $config_entity) {
-      if ($config_entity->get('type') === 'entity_reference' && $config_entity->get('settings')['target_type'] === 'point' && $config_entity->get('entity_type') == $path[1]) {
-        $field_name = $config_entity->get('field_name');
+      $field_name = $config_entity->get('field_name');
+      if ($config_entity->get('type') === 'entity_reference' && $config_entity->get('settings')['target_type'] === 'point' && $config_entity->get('entity_type') == $path[1] && substr($field_name, 6) == $path[3]) {
         $target_id = $entity->{$field_name}->target_id;
       }
     }
