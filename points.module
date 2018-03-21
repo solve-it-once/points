@@ -57,7 +57,7 @@ function points_add_number_field(PointTypeInterface $type, $label = 'points') {
  * @param \Drupal\Core\Entity\EntityInterface $entity
  */
 function points_entity_presave(EntityInterface $entity) {
-  if ($entity instanceof FieldConfigInterface && !$entity->isDeleted()) {
+  if ($entity instanceof FieldConfigInterface && !$entity->isDeleted() && !$entity->isSyncing()) {
     /** @var \Drupal\field\FieldConfigInterface $entity */
     if ($entity->getType() === 'entity_reference' && $entity->getSetting('target_type') === 'point') {
       // TODO don't hard code EntityFormDisplay type -- default
