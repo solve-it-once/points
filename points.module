@@ -7,6 +7,22 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\Entity\EntityFormDisplay;
 use Drupal\Core\Entity\Entity\EntityViewDisplay;
 use Drupal\field\FieldConfigInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+  * Implements hook_help().
+  */
+
+function points_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+  case 'help.page.points':
+  return t('<p>The Points module defines a Point entity type. Site builders can add fields to reference this type of entity in order to implement financial or transnational type of applications. This module tries to be the successor of Userpoints Module for Drupal 7. Contrary to the D7 version, In D8, Points can be attached to any entity type.</p>
+  <p>See the <a href=":project_page">project page on Drupal.org</a> for more details.</p>',
+     [
+     ':project_page' => 'https://www.drupal.org/project/points',
+    ]);
+   }
+}
 
 /**
  * Adds the default number field to a point type.
