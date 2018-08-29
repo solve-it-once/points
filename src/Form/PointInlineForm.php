@@ -28,7 +28,7 @@ class PointInlineForm extends EntityInlineForm {
         $points_inputs = $this->searchPointsEntity($field_name, $user_inputs[$entity_form['#parents'][0]]);
       }
     }
-    // Check if user has submit a point entity data
+    // Check if user has submit a point entity data.
     if (!$points_inputs) {
       $entity_form['state'] = [
         '#type' => 'hidden',

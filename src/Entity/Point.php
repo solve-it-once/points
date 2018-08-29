@@ -196,7 +196,7 @@ class Point extends ContentEntityBase implements PointInterface {
       $result = $query->condition('id', $this->id())->execute();
       if ($result) {
         $points = $this->point_delta;
-        $this->createTransaction($this->id(), $points,0, $this->getLog());
+        $this->createTransaction($this->id(), $points, 0, $this->getLog());
       }
     }
   }
@@ -204,7 +204,7 @@ class Point extends ContentEntityBase implements PointInterface {
   /**
    * {@inheritdoc}
    */
-  public function createTransaction($point_id, $points, $uid = 0, $des) {
+  public function createTransaction($point_id, $points, $uid = 0, $des = '') {
     if (!$uid) {
       $uid = \Drupal::currentUser()->id();
     }
@@ -222,5 +222,5 @@ class Point extends ContentEntityBase implements PointInterface {
 
     $movement->save();
   }
-}
 
+}

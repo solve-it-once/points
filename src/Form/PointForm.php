@@ -22,8 +22,9 @@ class PointForm extends ContentEntityForm {
     $user_inputs = $form_state->getUserInput();
     $form['state']['#type'] = 'hidden';
     if (!$user_inputs) {
-      $form['state']['#value'] =$entity->getPoints();
-    } else {
+      $form['state']['#value'] = $entity->getPoints();
+    }
+    else {
       $form['state']['#value'] = $user_inputs['state'];
     }
 

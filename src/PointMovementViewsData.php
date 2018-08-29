@@ -16,14 +16,14 @@ class PointMovementViewsData extends EntityViewsData {
 
     $data = parent::getViewsData();
 
-    // Add the relationship to User
+    // Add the relationship to User.
     $data['point_movement']['uid']['relationship']['id'] = 'standard';
     $data['point_movement']['uid']['relationship']['base'] = 'users_field_data';
     $data['point_movement']['uid']['relationship']['base field'] = 'uid';
     $data['point_movement']['uid']['relationship']['title'] = $this->t('Users');
     $data['point_movement']['uid']['relationship']['label'] = $this->t('Users');
 
-    // Add the relationship to point
+    // Add the relationship to point.
     $data['point_movement']['point_id']['relationship']['id'] = 'standard';
     $data['point_movement']['point_id']['relationship']['base'] = 'point';
     $data['point_movement']['point_id']['relationship']['base field'] = 'id';
@@ -32,4 +32,5 @@ class PointMovementViewsData extends EntityViewsData {
 
     return $data;
   }
+
 }

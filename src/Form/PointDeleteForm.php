@@ -10,6 +10,4 @@ use Drupal\Core\Entity\ContentEntityDeleteForm;
  * @ingroup points
  */
 class PointDeleteForm extends ContentEntityDeleteForm {
-
-
 }

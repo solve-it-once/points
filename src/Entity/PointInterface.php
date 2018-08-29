@@ -12,7 +12,7 @@ use Drupal\user\EntityOwnerInterface;
  *
  * @ingroup points
  */
-interface PointInterface extends  ContentEntityInterface, EntityChangedInterface {
+interface PointInterface extends ContentEntityInterface, EntityChangedInterface {
 
   // Add get/set methods for your configuration properties here.
 
@@ -36,29 +36,42 @@ interface PointInterface extends  ContentEntityInterface, EntityChangedInterface
   public function setCreatedTime($timestamp);
 
   /**
+   * Implements getPoints method.
+   *
    * @return double
+   *   Return points.
    */
   public function getPoints();
 
   /**
+   * Implements setPoints method.
+   *
    * @param double $points
-   * @return \Drupal\points\Entity\PointInterface
+   *   Points data.
    */
-  public function setPoints($points);
+  public function setPoints(double $points);
 
   /**
+   * Implements getLog method.
+   *
    * @return string
+   *   Retunr logs.
    */
   public function getLog();
 
   /**
+   * Implements setLog method.
+   *
    * @param string $log
-   * @return \Drupal\points\Entity\PointInterface
+   *   Logs data.
    */
   public function setLog($log);
 
   /**
+   * Implements getState method.
+   *
    * @return double
+   *   Return state.
    */
   public function getState();
 

@@ -2,4 +2,9 @@
 
 namespace Drupal\points\Entity;
 
-interface PointMovementInterface {}
+/**
+ * Interface PointMovementInterface.
+ */
+interface PointMovementInterface {
+
+}

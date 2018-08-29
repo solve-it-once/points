@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Contains points.module.
+ */
+
 use Drupal\points\Entity\PointTypeInterface;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
@@ -10,18 +15,17 @@ use Drupal\field\FieldConfigInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 
 /**
-  * Implements hook_help().
-  */
-
+ * Implements hook_help().
+ */
 function points_help($route_name, RouteMatchInterface $route_match) {
   switch ($route_name) {
-  case 'help.page.points':
-  return t('<p>The Points module defines a Point entity type. Site builders can add fields to reference this type of entity in order to implement financial or transnational type of applications. This module tries to be the successor of Userpoints Module for Drupal 7. Contrary to the D7 version, In D8, Points can be attached to any entity type.</p>
+    case 'help.page.points':
+      return t('<p>The Points module defines a Point entity type. Site builders can add fields to reference this type of entity in order to implement financial or transnational type of applications. This module tries to be the successor of Userpoints Module for Drupal 7. Contrary to the D7 version, In D8, Points can be attached to any entity type.</p>
   <p>See the <a href=":project_page">project page on Drupal.org</a> for more details.</p>',
-     [
-     ':project_page' => 'https://www.drupal.org/project/points',
+    [
+      ':project_page' => 'https://www.drupal.org/project/points',
     ]);
-   }
+  }
 }
 
 /**
@@ -68,34 +72,36 @@ function points_add_number_field(PointTypeInterface $type, $label = 'points') {
 
 /**
  * Implement hook_entity_presave().
- * Change the default widget form entity_reference to IEF if the target is Point
+ *
+ * Change the default widget form entity_reference to IEF if the target is Point.
  *
  * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   Entity data.
  */
 function points_entity_presave(EntityInterface $entity) {
   if ($entity instanceof FieldConfigInterface && !$entity->isDeleted() && !$entity->isSyncing()) {
     /** @var \Drupal\field\FieldConfigInterface $entity */
     if ($entity->getType() === 'entity_reference' && $entity->getSetting('target_type') === 'point') {
-      // TODO don't hard code EntityFormDisplay type -- default
-      $display_form_id = $entity->getTargetEntityTypeId(). '.' .$entity->getTargetBundle().'.default';
+      // TODO don't hard code EntityFormDisplay type -- default.
+      $display_form_id = $entity->getTargetEntityTypeId() . '.' . $entity->getTargetBundle() . '.default';
       $entity_form_display = EntityFormDisplay::load($display_form_id);
       $config_copy = $entity_form_display->get('content');
-      // If the widget is already IEF, then we don't override the settings at all
+      // If the widget is already IEF, then we don't override the settings at all.
       if ($config_copy[$entity->getName()]['type'] === 'inline_entity_form_simple') {
         return;
       }
-      // Set IEF form
+      // Set IEF form.
       $config_copy[$entity->getName()]['type'] = 'inline_entity_form_simple';
       $config_copy[$entity->getName()]['settings'] = [
         'form_mode' => 'default',
-        'override_labels' => false,
+        'override_labels' => FALSE,
         'label_singular' => '',
         'label_plural' => ''
       ];
       $entity_form_display->set('content', $config_copy);
       $entity_form_display->save();
 
-      // Set rendered entity view for Point Entity
+      // Set rendered entity view for Point Entity.
       $entity_view_display = EntityViewDisplay::load($display_form_id);
       $config_copy = $entity_view_display->get('content');
       $config_copy[$entity->getName()]['type'] = 'entity_reference_entity_view';

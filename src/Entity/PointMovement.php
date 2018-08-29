@@ -83,4 +83,5 @@ class PointMovement extends ContentEntityBase implements PointMovementInterface 
 
     return $fields;
   }
+
 }

@@ -8,14 +8,21 @@ use Drupal\Core\Render\Renderer;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\views\Views;
 
+/**
+ * Class EntityPointsMovementController.
+ */
 class EntityPointsMovementController extends ControllerBase {
 
   /**
+   * Provides entity_type.manager service.
+   *
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
   protected $entityTypeManager;
 
   /**
+   * Provides renderer service.
+   *
    * @var \Drupal\Core\Render\Renderer
    */
   protected $renderer;
@@ -24,7 +31,9 @@ class EntityPointsMovementController extends ControllerBase {
    * Constructs a EntityPointsMovementController object.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
+   *   Provides an interface for entity type managers.
    * @param \Drupal\Core\Render\Renderer $renderer
+   *   Turns a render array into a HTML string.
    */
   public function __construct(EntityTypeManagerInterface $entityTypeManager, Renderer $renderer) {
     $this->entityTypeManager = $entityTypeManager;
@@ -41,8 +50,11 @@ class EntityPointsMovementController extends ControllerBase {
     );
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function page() {
-    // The current_path should look like /entity_type/entity_id/points
+    // The current_path should look like /entity_type/entity_id/points.
     $current_path = \Drupal::service('path.current')->getPath();
     $path = explode("/", $current_path);
 
