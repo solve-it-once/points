@@ -49,7 +49,7 @@ interface PointInterface extends ContentEntityInterface, EntityChangedInterface 
    * @param double $points
    *   Points data.
    */
-  public function setPoints(double $points);
+  public function setPoints($points);
 
   /**
    * Implements getLog method.
