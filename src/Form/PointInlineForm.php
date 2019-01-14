@@ -15,6 +15,7 @@ class PointInlineForm extends EntityInlineForm {
    */
   public function entityForm(array $entity_form, FormStateInterface $form_state) {
     $entity_form = parent::entityForm($entity_form, $form_state);
+    $ief_row_delta = $entity_form['#ief_row_delta'];
     /** @var \Drupal\points\Entity\Point $entity */
     $entity = $entity_form['#entity'];
     $user_inputs = $form_state->getUserInput();
@@ -28,18 +29,19 @@ class PointInlineForm extends EntityInlineForm {
         $points_inputs = $this->searchPointsEntity($field_name, $user_inputs[$entity_form['#parents'][0]]);
       }
     }
-    // Check if user has submit a point entity data.
-    if (!$points_inputs) {
+
+    // When the point entity was first loaded, we can get it's points value;
+    // Set the point entity's state value always be the same with the value
+    // above no matter how many times the point entity was loaded.
+    if (!isset($points_inputs[$ief_row_delta]['inline_entity_form']['state'])) {
       $entity_form['state'] = [
         '#type' => 'hidden',
         '#value' => $entity->getPoints(),
       ];
-      // TODO: do we need to handle when mutiple Point entities are allowed?
       $entity->set('state', $entity->getPoints());
     }
     else {
-      // TODO: do we need to handle when mutiple Point entities are allowed?
-      $entity->set('state', $points_inputs[0]['inline_entity_form']['state']);
+      $entity->set('state', $points_inputs[$ief_row_delta]['inline_entity_form']['state']);
     }
     return $entity_form;
   }
