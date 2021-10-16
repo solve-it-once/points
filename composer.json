@@ -1,0 +1,22 @@
+{
+    "name": "drupal/points",
+    "description": "Define Point Entity Type and its associated functionalities.",
+    "type": "drupal-module",
+    "license": "GPL-2.0+",
+    "minimum-stability": "dev",
+    "homepage": "https://www.drupal.org/project/points",
+    "authors": [
+        {
+            "name": "skyredwang",
+            "homepage": "https://www.drupal.org/user/228712"
+        }
+    ],
+    "support": {
+        "issues": "https://www.drupal.org/project/issues/points",
+        "source": "http://git.drupalcode.org/project/points"
+    },
+    "require": {
+        "drupal/core": "^8.7|^9.0",
+        "drupal/inline_entity_form": "*"
+    }
+}

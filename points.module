@@ -54,14 +54,14 @@ function points_add_number_field(PointTypeInterface $type, $label = 'points') {
   }
 
   // Assign widget settings for the 'default' form mode.
-  entity_get_form_display('point', $type->id(), 'default')
+  \Drupal::service('entity_display.repository')->getFormDisplay('point', $type->id(), 'default')
     ->setComponent('points', [
       'type' => 'number',
     ])
     ->save();
 
   // Assign display settings for the 'default' and 'teaser' view modes.
-  entity_get_display('point', $type->id(), 'default')
+  \Drupal::service('entity_display.repository')->getViewDisplay('point', $type->id(), 'default')
     ->setComponent('points', [
       'type' => 'number_decimal',
     ])

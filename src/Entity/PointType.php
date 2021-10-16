@@ -23,6 +23,11 @@ use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
  *     },
  *   },
  *   config_prefix = "point_type",
+ *   config_export = {
+ *     "id",
+ *     "label",
+ *     "uuid"
+ *   },
  *   admin_permission = "administer site configuration",
  *   bundle_of = "point",
  *   entity_keys = {

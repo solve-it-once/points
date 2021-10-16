@@ -1,7 +1,7 @@
 name: Points
 type: module
 description: Define Point Entity Type and its associated functionalities.
-core: 8.x
+core_version_requirement: ^8 || ^9
 package: Points
 dependencies:
   - drupal:field

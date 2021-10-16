@@ -4,8 +4,7 @@ namespace Drupal\points;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityListBuilder;
-use Drupal\Core\Routing\LinkGeneratorTrait;
-use Drupal\Core\Url;
+use Drupal\Core\Link;
 
 /**
  * Defines a class to build a listing of Point entities.
@@ -14,7 +13,7 @@ use Drupal\Core\Url;
  */
 class PointListBuilder extends EntityListBuilder {
 
-  use LinkGeneratorTrait;
+  use Link;
 
   /**
    * {@inheritdoc}
