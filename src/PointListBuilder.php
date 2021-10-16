@@ -4,7 +4,6 @@ namespace Drupal\points;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityListBuilder;
-use Drupal\Core\Link;
 
 /**
  * Defines a class to build a listing of Point entities.
@@ -12,8 +11,6 @@ use Drupal\Core\Link;
  * @ingroup points
  */
 class PointListBuilder extends EntityListBuilder {
-
-  use Link;
 
   /**
    * {@inheritdoc}
