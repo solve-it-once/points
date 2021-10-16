@@ -13,7 +13,7 @@
     ],
     "support": {
         "issues": "https://www.drupal.org/project/issues/points",
-        "source": "http://git.drupalcode.org/project/points"
+        "source": "https://git.drupalcode.org/project/points"
     },
     "require": {
         "drupal/core": "^8.7|^9.0",
