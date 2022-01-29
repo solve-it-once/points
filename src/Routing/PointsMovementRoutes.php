@@ -2,6 +2,7 @@
 
 namespace Drupal\points\Routing;
 
+use Drupal;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Symfony\Component\Routing\Route;
 
@@ -12,11 +13,14 @@ class PointsMovementRoutes {
   use StringTranslationTrait;
 
   /**
-   * {@inheritdoc}
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   *   Thrown if the entity type doesn't exist.
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   *   Thrown if the storage handler couldn't be loaded.
    */
   public function routes() {
     $routes = [];
-    $config_entities = \Drupal::entityTypeManager()->getStorage('field_storage_config')->loadMultiple();
+    $config_entities = Drupal::entityTypeManager()->getStorage('field_storage_config')->loadMultiple();
     foreach ($config_entities as $config_entity) {
       if ($config_entity->get('type') === 'entity_reference' && $config_entity->get('settings')['target_type'] === 'point') {
         $entity_type_id = $config_entity->get('entity_type');

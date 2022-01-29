@@ -44,6 +44,11 @@ class PointTypeForm extends EntityForm {
 
   /**
    * {@inheritdoc}
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   *   In case of failures an exception is thrown.
+   * @throws \Drupal\Core\Entity\EntityMalformedException
+   * @throws \Drupal\Core\Entity\Exception\UndefinedLinkTemplateException
    */
   public function save(array $form, FormStateInterface $form_state) {
     $point_type = $this->entity;

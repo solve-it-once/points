@@ -2,6 +2,7 @@
 
 namespace Drupal\points\Plugin\Derivative;
 
+use Drupal;
 use Drupal\Component\Plugin\Derivative\DeriverBase;
 use Drupal\Core\Plugin\Discovery\ContainerDeriverInterface;
 use Drupal\Core\Routing\RouteProvider;
@@ -42,10 +43,15 @@ class PointsLocalTask extends DeriverBase implements ContainerDeriverInterface {
 
   /**
    * {@inheritdoc}
+   *
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   *   Thrown if the entity type doesn't exist.
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   *   Thrown if the storage handler couldn't be loaded.
    */
   public function getDerivativeDefinitions($base_plugin_definition) {
     $derivatives = [];
-    $config_entities = \Drupal::entityTypeManager()->getStorage('field_config')->loadMultiple();
+    $config_entities = Drupal::entityTypeManager()->getStorage('field_config')->loadMultiple();
     foreach ($config_entities as $config_entity) {
       $handler = explode(':', $config_entity->getSetting('handler'));
       if ($config_entity->getType() === 'entity_reference' && $handler[1] === 'point') {

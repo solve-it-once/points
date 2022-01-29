@@ -38,6 +38,9 @@ function points_help($route_name, RouteMatchInterface $route_match) {
  *
  * @return \Drupal\field\Entity\FieldConfig
  *   A Points field object.
+ *
+ * @throws \Drupal\Core\Entity\EntityStorageException
+ *   In case of failures an exception is thrown.
  */
 function points_add_number_field(PointTypeInterface $type, $label = 'points') {
   // Add or remove the points field, as needed.
@@ -54,14 +57,14 @@ function points_add_number_field(PointTypeInterface $type, $label = 'points') {
   }
 
   // Assign widget settings for the 'default' form mode.
-  \Drupal::service('entity_display.repository')->getFormDisplay('point', $type->id(), 'default')
+  Drupal::service('entity_display.repository')->getFormDisplay('point', $type->id(), 'default')
     ->setComponent('points', [
       'type' => 'number',
     ])
     ->save();
 
   // Assign display settings for the 'default' and 'teaser' view modes.
-  \Drupal::service('entity_display.repository')->getViewDisplay('point', $type->id(), 'default')
+  Drupal::service('entity_display.repository')->getViewDisplay('point', $type->id(), 'default')
     ->setComponent('points', [
       'type' => 'number_decimal',
     ])
@@ -73,10 +76,14 @@ function points_add_number_field(PointTypeInterface $type, $label = 'points') {
 /**
  * Implement hook_entity_presave().
  *
- * Change the default widget form entity_reference to IEF if the target is Point.
+ * Change the default widget form entity_reference to IEF if the target is
+ * Point.
  *
  * @param \Drupal\Core\Entity\EntityInterface $entity
  *   Entity data.
+ *
+ * @throws \Drupal\Core\Entity\EntityStorageException
+ *   In case of failures an exception is thrown.
  */
 function points_entity_presave(EntityInterface $entity) {
   if ($entity instanceof FieldConfigInterface && !$entity->isDeleted() && !$entity->isSyncing()) {

@@ -20,13 +20,14 @@ class PointForm extends ContentEntityForm {
     $form = parent::buildForm($form, $form_state);
     $entity = $this->entity;
     $user_inputs = $form_state->getUserInput();
-    $form['state']['#type'] = 'hidden';
     if (!$user_inputs) {
+      unset($form['state']);
       $form['state']['#value'] = $entity->getPoints();
     }
     else {
-      $form['state']['#value'] = $user_inputs['state'];
+      $form['state']['widget'][0]['value']['#value'] = $user_inputs['state'];
     }
+    $form['state']['#type'] = 'hidden';
 
     return $form;
   }

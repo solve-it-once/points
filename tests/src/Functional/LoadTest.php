@@ -35,6 +35,8 @@ class LoadTest extends BrowserTestBase {
 
   /**
    * {@inheritdoc}
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
    */
   protected function setUp() {
     parent::setUp();
@@ -44,10 +46,12 @@ class LoadTest extends BrowserTestBase {
 
   /**
    * Tests that the home page loads with a 200 response.
+   *
+   * @throws \Behat\Mink\Exception\ExpectationException
    */
   public function testLoad() {
     $this->drupalGet(Url::fromRoute('<front>'));
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
   }
 
 }

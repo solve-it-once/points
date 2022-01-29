@@ -2,6 +2,7 @@
 
 namespace Drupal\points\Controller;
 
+use Drupal;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Render\Renderer;
@@ -51,16 +52,20 @@ class EntityPointsMovementController extends ControllerBase {
   }
 
   /**
-   * {@inheritdoc}
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   *   Thrown if the entity type doesn't exist.
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   *   Thrown if the storage handler couldn't be loaded.
+   * @throws \Exception
    */
   public function page() {
     // The current_path should look like /entity_type/entity_id/points.
-    $current_path = \Drupal::service('path.current')->getPath();
+    $current_path = Drupal::service('path.current')->getPath();
     $path = explode("/", $current_path);
 
     $entity = $this->entityTypeManager->getStorage($path[1])->load($path[2]);
 
-    $config_entities = \Drupal::entityTypeManager()->getStorage('field_storage_config')->loadMultiple();
+    $config_entities = Drupal::entityTypeManager()->getStorage('field_storage_config')->loadMultiple();
     foreach ($config_entities as $config_entity) {
       $field_name = $config_entity->get('field_name');
       if ($config_entity->get('type') === 'entity_reference' && $config_entity->get('settings')['target_type'] === 'point' && $config_entity->get('entity_type') == $path[1] && substr($field_name, 6) == $path[3]) {
@@ -72,11 +77,10 @@ class EntityPointsMovementController extends ControllerBase {
     $view = Views::getview('point_movement');
     $view_render_array = $view->buildRenderable('embed_1', [$target_id]);
 
-    $build = [
+    return [
       '#type' => 'markup',
       '#markup' => $this->renderer->render($view_render_array)
     ];
-    return $build;
   }
 
 }

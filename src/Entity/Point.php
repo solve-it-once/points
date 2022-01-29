@@ -2,6 +2,7 @@
 
 namespace Drupal\points\Entity;
 
+use Drupal;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityBase;
@@ -186,13 +187,18 @@ class Point extends ContentEntityBase implements PointInterface {
   }
 
   /**
-   * {@inheritdoc}
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   *   Thrown if the entity type doesn't exist.
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   *   Thrown if the storage handler couldn't be loaded.
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   *   In case of failures an exception is thrown.
    */
   public function postSave(EntityStorageInterface $storage, $update = TRUE) {
     parent::postSave($storage, $update);
 
     if (isset($this->point_delta)) {
-      $query = \Drupal::entityQuery('point');
+      $query = Drupal::entityQuery('point');
       $result = $query->condition('id', $this->id())->execute();
       if ($result) {
         $points = $this->point_delta;
@@ -202,11 +208,16 @@ class Point extends ContentEntityBase implements PointInterface {
   }
 
   /**
-   * {@inheritdoc}
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   *   Thrown if the entity type doesn't exist.
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   *   Thrown if the storage handler couldn't be loaded.
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   *   In case of failures an exception is thrown.
    */
   public function createTransaction($point_id, $points, $uid = 0, $des = '') {
     if (!$uid) {
-      $uid = \Drupal::currentUser()->id();
+      $uid = Drupal::currentUser()->id();
     }
 
     $movement = $this->entityTypeManager()

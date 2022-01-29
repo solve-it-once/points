@@ -34,6 +34,9 @@ class PointTypeDeleteForm extends EntityConfirmFormBase {
 
   /**
    * {@inheritdoc}
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   *   In case of failures an exception is thrown.
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->entity->delete();
