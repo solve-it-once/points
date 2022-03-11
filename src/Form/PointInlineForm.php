@@ -34,12 +34,7 @@ class PointInlineForm extends EntityInlineForm {
     // Set the point entity's state value always be the same with the value
     // above no matter how many times the point entity was loaded.
     if (!isset($points_inputs[$ief_row_delta]['inline_entity_form']['state'])) {
-      unset($entity_form['state']);
-      $entity_form['state']['#value'] = $entity->getPoints();
       $entity->set('state', $entity->getPoints());
-    }
-    else {
-      $entity_form['state']['widget'][0]['value']['#value'] = $points_inputs[$ief_row_delta]['inline_entity_form']['state'];
     }
     $entity_form['state']['#type'] = 'hidden';
     return $entity_form;
