@@ -5,14 +5,14 @@
  * Contains points.module.
  */
 
-use Drupal\points\Entity\PointTypeInterface;
-use Drupal\field\Entity\FieldConfig;
-use Drupal\field\Entity\FieldStorageConfig;
-use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\Entity\EntityFormDisplay;
 use Drupal\Core\Entity\Entity\EntityViewDisplay;
-use Drupal\field\FieldConfigInterface;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\field\FieldConfigInterface;
+use Drupal\points\Entity\PointTypeInterface;
 
 /**
  * Implements hook_help().
@@ -22,9 +22,9 @@ function points_help($route_name, RouteMatchInterface $route_match) {
     case 'help.page.points':
       return t('<p>The Points module defines a Point entity type. Site builders can add fields to reference this type of entity in order to implement financial or transnational type of applications. This module tries to be the successor of Userpoints Module for Drupal 7. Contrary to the D7 version, In D8, Points can be attached to any entity type.</p>
   <p>See the <a href=":project_page">project page on Drupal.org</a> for more details.</p>',
-    [
-      ':project_page' => 'https://www.drupal.org/project/points',
-    ]);
+        [
+          ':project_page' => 'https://www.drupal.org/project/points',
+        ]);
   }
 }
 
@@ -57,14 +57,16 @@ function points_add_number_field(PointTypeInterface $type, $label = 'points') {
   }
 
   // Assign widget settings for the 'default' form mode.
-  Drupal::service('entity_display.repository')->getFormDisplay('point', $type->id(), 'default')
+  Drupal::service('entity_display.repository')
+    ->getFormDisplay('point', $type->id(), 'default')
     ->setComponent('points', [
       'type' => 'number',
     ])
     ->save();
 
   // Assign display settings for the 'default' and 'teaser' view modes.
-  Drupal::service('entity_display.repository')->getViewDisplay('point', $type->id(), 'default')
+  Drupal::service('entity_display.repository')
+    ->getViewDisplay('point', $type->id(), 'default')
     ->setComponent('points', [
       'type' => 'number_decimal',
     ])
@@ -103,7 +105,7 @@ function points_entity_presave(EntityInterface $entity) {
         'form_mode' => 'default',
         'override_labels' => FALSE,
         'label_singular' => '',
-        'label_plural' => ''
+        'label_plural' => '',
       ];
       $entity_form_display->set('content', $config_copy);
       $entity_form_display->save();

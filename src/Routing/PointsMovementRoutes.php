@@ -10,6 +10,7 @@ use Symfony\Component\Routing\Route;
  * Defines dynamic routes.
  */
 class PointsMovementRoutes {
+
   use StringTranslationTrait;
 
   /**
@@ -20,7 +21,9 @@ class PointsMovementRoutes {
    */
   public function routes() {
     $routes = [];
-    $config_entities = Drupal::entityTypeManager()->getStorage('field_storage_config')->loadMultiple();
+    $config_entities = Drupal::entityTypeManager()
+      ->getStorage('field_storage_config')
+      ->loadMultiple();
     foreach ($config_entities as $config_entity) {
       if ($config_entity->get('type') === 'entity_reference' && $config_entity->get('settings')['target_type'] === 'point') {
         $entity_type_id = $config_entity->get('entity_type');
@@ -31,11 +34,11 @@ class PointsMovementRoutes {
           // Route defaults:
           [
             '_controller' => '\Drupal\points\Controller\EntityPointsMovementController::page',
-            '_title' => $field_name
+            '_title' => $field_name,
           ],
           // Route requirements:
           [
-            '_permission'  => 'view point entities',
+            '_permission' => 'view point entities',
           ]
         );
       }

@@ -2,8 +2,8 @@
 
 namespace Drupal\points\Form;
 
-use Drupal\inline_entity_form\Form\EntityInlineForm;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\inline_entity_form\Form\EntityInlineForm;
 
 /**
  * Defines the inline form for Point Entity.

@@ -19,5 +19,5 @@ content:
       decimal_separator: .
       scale: 2
       prefix_suffix: true
-    third_party_settings: {  }
-hidden: {  }
+    third_party_settings: { }
+hidden: { }

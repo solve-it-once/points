@@ -11,11 +11,10 @@ entity.point.edit_form:
   title: 'Edit'
 
 entity.point.delete_form:
-  route_name:  entity.point.delete_form
-  base_route:  entity.point.canonical
+  route_name: entity.point.delete_form
+  base_route: entity.point.canonical
   title: Delete
   weight: 10
 
 points.tab.on.referencing.entity:
   deriver: \Drupal\points\Plugin\Derivative\PointsLocalTask
-

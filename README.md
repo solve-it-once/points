@@ -1,13 +1,12 @@
 CONTENTS OF THIS FILE
 ---------------------
 
- * Introduction
- * Requirements
- * Recommended Modules
- * Installation
- * Configuration
- * Maintainers
-
+* Introduction
+* Requirements
+* Recommended Modules
+* Installation
+* Configuration
+* Maintainers
 
 INTRODUCTION
 ------------
@@ -19,13 +18,11 @@ type of applications.
 This module tries to be the successor of Userpoints Module for Drupal 7.
 Contrary to the D7 version, in D8, Points can be attached to any entity type.
 
+* For a full description of the module visit:
+  https://www.drupal.org/project/points
 
- * For a full description of the module visit:
-   https://www.drupal.org/project/points
-
- * To submit bug reports and feature suggestions, or to track changes visit:
-   https://www.drupal.org/project/issues/points
-
+* To submit bug reports and feature suggestions, or to track changes visit:
+  https://www.drupal.org/project/issues/points
 
 REQUIREMENTS
 ------------
@@ -36,9 +33,8 @@ This module requires no modules outside of Drupal core.
 INSTALLATION
 ------------
 
- * Install the Points module as you would normally install a contributed Drupal
-   module. Visit https://www.drupal.org/node/1897420 for further information.
-
+* Install the Points module as you would normally install a contributed Drupal
+  module. Visit https://www.drupal.org/node/1897420 for further information.
 
 CONFIGURATION
 -------------
@@ -64,8 +60,8 @@ time retrieved.
 MAINTAINERS
 -----------
 
- * Jingsheng Wang (skyredwang) - https://www.drupal.org/u/skyredwang
+* Jingsheng Wang (skyredwang) - https://www.drupal.org/u/skyredwang
 
 Supporting organization:
 
- * INsReady - https://www.drupal.org/insready
+* INsReady - https://www.drupal.org/insready

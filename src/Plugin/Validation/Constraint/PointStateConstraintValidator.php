@@ -24,7 +24,9 @@ class PointStateConstraintValidator extends ConstraintValidator {
       /** @var \Drupal\points\Entity\PointInterface $entity */
       if (!$entity->isNew()) {
         $state = $entity->getState();
-        $saved_point = Drupal::entityTypeManager()->getStorage('point')->loadUnchanged($entity->id());
+        $saved_point = Drupal::entityTypeManager()
+          ->getStorage('point')
+          ->loadUnchanged($entity->id());
         if ($state != $saved_point->getPoints()) {
           $this->context->addViolation($constraint->message);
         }

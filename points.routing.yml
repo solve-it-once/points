@@ -17,11 +17,11 @@ entity.point_type.collection:
 entity.points.collection:
   path: '/admin/structure/points/overview'
   defaults:
-  # Calls the list controller, defined in the annotation of the point entity.
+    # Calls the list controller, defined in the annotation of the point entity.
     _entity_list: 'point'
     _title: 'Point List'
   requirements:
-  # Checks for permission directly.
+    # Checks for permission directly.
     _permission: 'access point overview'
 
 route_callbacks:

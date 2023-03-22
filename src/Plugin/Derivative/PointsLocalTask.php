@@ -13,6 +13,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Provides local task definitions for all entity bundles.
  */
 class PointsLocalTask extends DeriverBase implements ContainerDeriverInterface {
+
   use StringTranslationTrait;
 
   /**
@@ -51,7 +52,9 @@ class PointsLocalTask extends DeriverBase implements ContainerDeriverInterface {
    */
   public function getDerivativeDefinitions($base_plugin_definition) {
     $derivatives = [];
-    $config_entities = Drupal::entityTypeManager()->getStorage('field_config')->loadMultiple();
+    $config_entities = Drupal::entityTypeManager()
+      ->getStorage('field_config')
+      ->loadMultiple();
     foreach ($config_entities as $config_entity) {
       if (method_exists($config_entity, 'getSetting')) {
         $setting = $config_entity->getSetting('handler');

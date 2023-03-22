@@ -57,9 +57,10 @@ class PointTypeForm extends EntityForm {
     switch ($status) {
       case SAVED_NEW:
         points_add_number_field($point_type);
-        $this->messenger()->addStatus($this->t('Created the %label Point type.', [
-          '%label' => $point_type->label(),
-        ]));
+        $this->messenger()
+          ->addStatus($this->t('Created the %label Point type.', [
+            '%label' => $point_type->label(),
+          ]));
         break;
 
       default:

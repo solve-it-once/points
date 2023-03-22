@@ -3,11 +3,11 @@
 namespace Drupal\points\Entity;
 
 use Drupal;
-use Drupal\Core\Entity\EntityStorageInterface;
-use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityChangedTrait;
+use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Field\BaseFieldDefinition;
 
 /**
  * Defines the Point entity.
@@ -151,7 +151,7 @@ class Point extends ContentEntityBase implements PointInterface {
       ->setLabel(t('State'))
       ->setDescription(t('The state of Point; when the state is the same as the current points field, it is valid'))
       ->setSettings([
-        'default_value' => '0'
+        'default_value' => '0',
       ])
       ->setDisplayOptions('view', [
         'type' => 'hidden',

@@ -21,10 +21,10 @@ display:
     display_options:
       access:
         type: none
-        options: {  }
+        options: { }
       cache:
         type: tag
-        options: {  }
+        options: { }
       query:
         type: views_query
         options:
@@ -32,7 +32,7 @@ display:
           distinct: false
           replica: false
           query_comment: ''
-          query_tags: {  }
+          query_tags: { }
       exposed_form:
         type: basic
         options:
@@ -64,7 +64,7 @@ display:
       style:
         type: table
         options:
-          grouping: {  }
+          grouping: { }
           row_class: ''
           default_row_class: true
           override: true
@@ -85,7 +85,7 @@ display:
       row:
         type: fields
         options:
-          inline: {  }
+          inline: { }
           separator: ''
           hide_empty: false
           default_field_elements: true
@@ -146,7 +146,7 @@ display:
             decimal_separator: .
             scale: 2
           group_column: value
-          group_columns: {  }
+          group_columns: { }
           group_rows: true
           delta_limit: 0
           delta_offset: 0
@@ -213,7 +213,7 @@ display:
             custom_date_format: ''
             timezone: ''
           group_column: value
-          group_columns: {  }
+          group_columns: { }
           group_rows: true
           delta_limit: 0
           delta_offset: 0
@@ -278,7 +278,7 @@ display:
           settings:
             link_to_entity: true
           group_column: value
-          group_columns: {  }
+          group_columns: { }
           group_rows: true
           delta_limit: 0
           delta_offset: 0
@@ -343,7 +343,7 @@ display:
           settings:
             link_to_entity: false
           group_column: value
-          group_columns: {  }
+          group_columns: { }
           group_rows: true
           delta_limit: 0
           delta_offset: 0
@@ -355,7 +355,7 @@ display:
           entity_type: point_movement
           entity_field: description
           plugin_id: field
-      filters: {  }
+      filters: { }
       sorts:
         changed:
           id: changed
@@ -372,9 +372,9 @@ display:
           entity_type: point_movement
           entity_field: changed
           plugin_id: date
-      header: {  }
-      footer: {  }
-      empty: {  }
+      header: { }
+      footer: { }
+      empty: { }
       relationships:
         uid:
           id: uid
@@ -419,13 +419,13 @@ display:
           validate:
             type: none
             fail: 'not found'
-          validate_options: {  }
+          validate_options: { }
           break_phrase: false
           not: false
           entity_type: point_movement
           entity_field: point_id
           plugin_id: numeric
-      display_extenders: {  }
+      display_extenders: { }
     cache_metadata:
       max-age: 0
       contexts:
@@ -433,14 +433,14 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-      tags: {  }
+      tags: { }
   embed_1:
     display_plugin: embed
     id: embed_1
     display_title: Embed
     position: 1
     display_options:
-      display_extenders: {  }
+      display_extenders: { }
     cache_metadata:
       max-age: 0
       contexts:
@@ -448,4 +448,4 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-      tags: {  }
+      tags: { }
