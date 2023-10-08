@@ -16,7 +16,7 @@
         "source": "https://git.drupalcode.org/project/points"
     },
     "require": {
-        "drupal/core": "^8.7|^9.0",
+        "drupal/core": "^9.4|^10.0",
         "drupal/inline_entity_form": "*"
     }
 }
