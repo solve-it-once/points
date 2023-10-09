@@ -69,6 +69,8 @@ class PointTypeForm extends EntityForm {
         ]));
     }
     $form_state->setRedirectUrl($point_type->toUrl('collection'));
+
+    return $status;
   }
 
 }

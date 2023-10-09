@@ -77,7 +77,10 @@ class EntityPointsMovementController extends ControllerBase {
 
     /** @var \Drupal\views\ViewExecutable $view */
     $view = Views::getview('point_movement');
-    $view_render_array = $view->buildRenderable('embed_1', [$target_id]);
+    $view_render_array = [];
+    if (!empty($target_id)) {
+      $view_render_array = $view->buildRenderable('embed_1', [$target_id]);
+    }
 
     return [
       '#type' => 'markup',

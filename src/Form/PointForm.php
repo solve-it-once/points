@@ -53,6 +53,8 @@ class PointForm extends ContentEntityForm {
         ]));
     }
     $form_state->setRedirect('entity.point.canonical', ['point' => $entity->id()]);
+
+    return $status;
   }
 
 }

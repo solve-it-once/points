@@ -199,7 +199,10 @@ class Point extends ContentEntityBase implements PointInterface {
 
     if (isset($this->point_delta)) {
       $query = Drupal::entityQuery('point');
-      $result = $query->condition('id', $this->id())->execute();
+      $result = $query
+        ->condition('id', $this->id())
+        ->accessCheck(TRUE)
+        ->execute();
       if ($result) {
         $points = $this->point_delta;
         $this->createTransaction($this->id(), $points, 0, $this->getLog());
