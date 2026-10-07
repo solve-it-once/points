@@ -154,10 +154,10 @@ class Point extends ContentEntityBase implements PointInterface {
         'default_value' => '0',
       ])
       ->setDisplayOptions('view', [
-        'type' => 'hidden',
+        'region' => 'hidden',
       ])
       ->setDisplayOptions('form', [
-        'type' => 'hidden',
+        'region' => 'hidden',
       ])
       ->setDisplayConfigurable('form', FALSE)
       ->setDisplayConfigurable('view', FALSE)

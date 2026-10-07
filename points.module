@@ -94,6 +94,11 @@ function points_entity_presave(EntityInterface $entity) {
       // TODO don't hard code EntityFormDisplay type -- default.
       $display_form_id = $entity->getTargetEntityTypeId() . '.' . $entity->getTargetBundle() . '.default';
       $entity_form_display = EntityFormDisplay::load($display_form_id);
+
+      if (!$entity_form_display) {
+        return;
+      }
+
       $config_copy = $entity_form_display->get('content');
       // If the widget is already IEF, then we don't override the settings at all.
       if ($config_copy[$entity->getName()]['type'] === 'inline_entity_form_simple') {

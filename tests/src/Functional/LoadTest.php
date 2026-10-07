@@ -24,7 +24,7 @@ class LoadTest extends BrowserTestBase {
    *
    * @var array
    */
-  public static $modules = ['points'];
+  protected static $modules = ['points'];
 
   /**
    * A user with permission to administer site configuration.
@@ -38,7 +38,7 @@ class LoadTest extends BrowserTestBase {
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
     $this->user = $this->drupalCreateUser(['administer site configuration']);
     $this->drupalLogin($this->user);
