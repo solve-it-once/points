@@ -156,8 +156,11 @@ class Point extends ContentEntityBase implements PointInterface {
       ->setDisplayOptions('view', [
         'region' => 'hidden',
       ])
+      // The state must stay in the form display: it has no storage, so it
+      // only carries a value when the form round-trips it. The edit forms
+      // render it as a hidden element.
       ->setDisplayOptions('form', [
-        'region' => 'hidden',
+        'type' => 'number',
       ])
       ->setDisplayConfigurable('form', FALSE)
       ->setDisplayConfigurable('view', FALSE)
